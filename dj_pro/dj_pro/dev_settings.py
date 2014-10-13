@@ -15,6 +15,7 @@ DEV_INSTALLED_APPS = (
 #    'tags',
     #rest_framework
     'rest_framework',
+    'setgame',
 #    'snippets',
 #    'south',
 )

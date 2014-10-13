@@ -39,4 +39,8 @@ urlpatterns = patterns('',
     #media
     (r'^media/(?P<path>.*)$', 'django.views.static.serve',
          {'document_root': settings.MEDIA_ROOT}),
+
+    url(r'^setgame/', include('setgame.urls',
+                            namespace='setgame')),
+
 )
