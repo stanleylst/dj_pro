@@ -8,15 +8,17 @@ user_urls = patterns('',
         )
 
 game_script_urls = patterns('',
-        url(r'^$',Game_ScriptList.as_view(),name='game_script-list'),
+        url(r'^$',Game_ScriptList.as_view(),name='gamescript-list'),
+        url(r'^/(?P<pk>[0-9]+)/$',Game_ScriptDetail.as_view(),name='gamescript-detail'),
         )
 
-excuted_command_urls = patterns('',
-        url(r'^$',Excuted_CommandList.as_view(),name='excuted_command-list'),
+excuted_commands_urls = patterns('',
+        url(r'^$',Excuted_CommandList.as_view(),name='excuted_commands-list'),
+        url(r'^/(?P<pk>[0-9]+)/$',Excuted_CommandList.as_view(),name='excuted_commands-detail'),
         )
 
 urlpatterns = patterns('',
         url(r'^users',include(user_urls)),
         url(r'^game_scripts',include(game_script_urls)),
-        url(r'^excuted_commands',include(excuted_command_urls)),
+        url(r'^excuted_commands',include(excuted_commands_urls)),
         )

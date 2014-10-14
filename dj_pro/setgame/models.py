@@ -9,7 +9,7 @@ class Game_Script(models.Model):
     access_ip = models.IPAddressField()
 
     def __unicode__(self):
-        return self.script + " on game " + self.gamename
+        return '%s on game %s'%(self.gamescript,self.gamename)
 
 class Excuted_Command(models.Model):
     game_script = models.ForeignKey(Game_Script,related_name = 'excuted_commands')
@@ -17,6 +17,4 @@ class Excuted_Command(models.Model):
     username = models.ForeignKey(User,related_name = 'excuted_commands')
 
     def __unicode__(self):
-        return self.username + " used " + self.game_script + " at " + self.excute_time
-
-
+        return '%s used %s at %s'%(self.username,self.game_script,self.excute_time)

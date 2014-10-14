@@ -3,21 +3,23 @@ from .models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
-    excuted_commands = serializers.HyperlinkedIdentityField('excuted_commands',view_name = 'game_script-detail',lookup_field = 'username')
+    excuted_commands = serializers.RelatedField(many=True)
 
     class Meta:
         model = User
-        fields = ('username','excuted_commands')
+        fields = ('username','password','excuted_commands')
 
 class Game_ScriptSerializer(serializers.ModelSerializer):
-    excuted_commands = serializers.HyperlinkedIdentityField('excuted_commands',view_name = 'game_script-list')
+    excuted_commands = serializers.RelatedField(many=True,read_only=True)
 
     class Meta:
         model = Game_Script
         fields = ('gamename','gamescript','access_ip','excuted_commands')
 
 class Excuted_CommandSerializer(serializers.ModelSerializer):
+    user = serializers.Field(source='username.username')
+    script = serializers.Field(source='game_script.gamescript')
 
     class Meta:
         model = Excuted_Command
-        fields = ('game_script','username','excute_time')
+        fields = ('username','game_script','user','script','excute_time')
