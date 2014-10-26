@@ -1,0 +1,8 @@
+{% url 'imagesuccess' %} 
+<p>and you sure to delete {{ book.title }}?</p>
+<form action="#" method="post">                         
+    {% csrf_token %}                                    
+    {{ form.as_p }}                                     
+    <input type="submit" name="" id="" value="Delete" />
+</form>                                                 
+
