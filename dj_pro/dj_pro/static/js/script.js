@@ -53,12 +53,11 @@ app.controller('user_ctrl', function($scope, User) {
   // Get all posts
     $scope.users = User.query();
 
-    $scope.newuser = {};
-    $scope.myuser = fuction(){
-        var user = new User($scope.newuser);
-        user.$save();
-        //console.log('post success');
-        }
-
+    $scope.postData = {};
+    $scope.newPost = function() {
+    console.log($scope.postData);
+        var post = new User($scope.postData);
+        post.$save($scope.postData);
+    }
 });
 

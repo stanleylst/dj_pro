@@ -9,6 +9,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username','password','excuted_commands')
 
+    def restore_object(self,attrs,instance=None):
+        user = super(UserSerializer, self).restore_object(attrs,instance)
+        user.set_password(attrs['password'])
+        return user
+
 class Game_ScriptSerializer(serializers.ModelSerializer):
     excuted_commands = serializers.RelatedField(many=True,read_only=True)
 
