@@ -10,6 +10,13 @@ from .serializers import *
 class UserList(generics.ListCreateAPIView):
     model = User
     serializer_class = UserSerializer
+    renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
+
+    def list(self,request,*args,**kwargs):
+        response = super(UserList,self).list(request,*args,**kwargs)
+        if request.accepted_renderer.format == 'html':
+            return Response({'data': response.data}, template_name='login.html')
+        return response
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     model = User

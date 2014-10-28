@@ -36,7 +36,7 @@
                         {% csrf_token %}
                         <div class="form-group">
                             <input type="text" class="form-control" name='q' placeholder="Search"/>
-                        </div> <button type="submit" class="btn btn-default">Submit</button>
+                        </div> <button type="submit" class="btn btn btn-primary"><i class="icon-search">search</i></button>
                     </form>
                 </div>
                 
@@ -47,18 +47,31 @@
                         <li ng-repeat="i in game_scripts">(( i ))</li>
                     </ul>
                 </div>
-
-                <div ng-controller="user_ctrl">
-                    <ul>
+                <div ng-controller="game_script_ctrl">
+                    <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">go for select</button>
+                    <hr>
+                    <div collapse="isCollapsed">
+                        <div class="well well-lg">
+                            <form role="form">
+                                <div class="checkbox">
+                                    <label ng-repeat="i in game_scripts"><input type="checkbox"> (( i.gamename )), (( i.gamescript )),(( i.access_ip ))<br /></label>
+                                </div>
+                                <button type="submit" class="btn btn btn-info">Submit</button>
+                            </form>   
+                        </div> 
+                    </div>
+                    <!--
+                    <ul >
                         <li ng-repeat="i in users">(( i ))</li>
                     </ul>
+                    --!>
                     <form ng-submit="newPost()">
                         {% csrf_token %}
                         <label>New User:</label>
-                        <input type="text" ng-model="postData.username"/>
+                        <input type="text" name="username" id="" value="" ng-model="postData.username"/>
                         <br /><label>password:</label>
-                        <input type="password" ng-model="postData.password"/>
-                        <br /><button type="submit" class="btn btn-default">Create</button>
+                        <input type="password" name="password" id="" value="" ng-model="postData.password"/>
+                        <br /><button type="submit" class="btn btn btn-primary">Create</button>
                         
                     </form>
                 </div>

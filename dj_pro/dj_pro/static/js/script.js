@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngResource','ngCookies']);
+var app = angular.module('myApp', ['ngResource','ngCookies','ui.bootstrap']);
     app.config(function($interpolateProvider) { 
       $interpolateProvider.startSymbol('(('); 
       $interpolateProvider.endSymbol('))');
@@ -26,7 +26,8 @@ app.factory('User', ['$resource', function($resource) {
                 {
                     query: { 
                         method: 'GET',
-                        isArray: true
+                        //params: { action: "username" },
+                        isArray: true 
                     },
                     save: {
                         method: 'POST'
@@ -47,17 +48,24 @@ app.controller('game_script_ctrl', function($scope, Game_Script) {
   // Get all posts
   $scope.game_scripts = Game_Script.query();
 
+  $scope.isCollapsed = true;
+
 });    
 
 app.controller('user_ctrl', function($scope, User) {
   // Get all posts
     $scope.users = User.query();
 
+    $scope.isCollapsed = true;
+    
     $scope.postData = {};
     $scope.newPost = function() {
-    console.log($scope.postData);
         var post = new User($scope.postData);
+        alert("your register name is:"+ $scope.postData.username+"\npassword is:"+$scope.postData.password);
         post.$save($scope.postData);
-    }
+        $location.path(/11/);
+        window.location.reload();
+        $scope.$apply(); 
+        }
 });
 
