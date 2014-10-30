@@ -48,13 +48,21 @@
                     </ul>
                 </div>
                 <div ng-controller="game_script_ctrl">
-                    <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">go for select</button>
+                    <div>
+                        <ul>
+                            <li ng-repeat="i in game_scripts|filter:{gamename:'lying'}">
+                            (( i.gamename )), (( i.gamescript )),(( i.access_ip ))
+                            </li> 
+                        </ul>
+                    </div>
+                <div ng-repeat="a in game_scripts">
+                    <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">((a.gamename))</button>
                     <hr>
                     <div collapse="isCollapsed">
                         <div class="well well-lg">
                             <form role="form">
                                 <div class="checkbox">
-                                    <label ng-repeat="i in game_scripts"><input type="checkbox"> (( i.gamename )), (( i.gamescript )),(( i.access_ip ))<br /></label>
+                                    <label ng-repeat="i in game_scripts|filter:{gamename:((a.gamename))}"><input type="checkbox" value="(( i.gamename )), (( i.gamescript )),(( i.access_ip ))" name="get_list"> (( i.gamename )), (( i.gamescript )),(( i.access_ip ))<br /></label>
                                 </div>
                                 <button type="submit" class="btn btn btn-info">Submit</button>
                             </form>   
@@ -65,6 +73,7 @@
                         <li ng-repeat="i in users">(( i ))</li>
                     </ul>
                     --!>
+                </div>
                     <form ng-submit="newPost()">
                         {% csrf_token %}
                         <label>New User:</label>
@@ -74,8 +83,7 @@
                         <br /><button type="submit" class="btn btn btn-primary">Create</button>
                         
                     </form>
-                </div>
-
+            </div>
         </div>
     </div>
         

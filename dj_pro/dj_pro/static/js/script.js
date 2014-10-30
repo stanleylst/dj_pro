@@ -17,7 +17,11 @@ app.factory('Excuted_Command', ['$resource', function($resource) {
 }]);
 
 app.factory('Game_Script', ['$resource', function($resource) {
-        return $resource('/setgame/game_scripts/:id', {'pk': '@pk'}, {
+        return $resource('/setgame/game_scripts/:id', {}, {
+            get:{
+                method: 'GET',
+                isArray:true 
+                }
                 });
 }]);            
 
@@ -48,7 +52,10 @@ app.controller('game_script_ctrl', function($scope, Game_Script) {
   // Get all posts
   $scope.game_scripts = Game_Script.query();
 
+  $scope.game_len = function(e){return e.gamename=="dream"};
+
   $scope.isCollapsed = true;
+
 
 });    
 
