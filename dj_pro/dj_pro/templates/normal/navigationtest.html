@@ -48,21 +48,14 @@
                     </ul>
                 </div>
                 <div ng-controller="game_script_ctrl">
-                    <div>
-                        <ul>
-                            <li ng-repeat="i in game_scripts|filter:{gamename:'lying'}">
-                            (( i.gamename )), (( i.gamescript )),(( i.access_ip ))
-                            </li> 
-                        </ul>
-                    </div>
-                <div ng-repeat="a in game_scripts">
-                    <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">((a.gamename))</button>
+                <div ng-repeat="a in gamename_uniq">
+                    <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">((a))</button>
                     <hr>
                     <div collapse="isCollapsed">
                         <div class="well well-lg">
                             <form role="form">
                                 <div class="checkbox">
-                                    <label ng-repeat="i in game_scripts|filter:{gamename:((a.gamename))}"><input type="checkbox" value="(( i.gamename )), (( i.gamescript )),(( i.access_ip ))" name="get_list"> (( i.gamename )), (( i.gamescript )),(( i.access_ip ))<br /></label>
+                                    <label ng-repeat="i in game_scripts|filter:{gamename:((a))}"><input type="checkbox" value="(( i.gamename )), (( i.gamescript )),(( i.access_ip ))" name="get_list"> (( i.gamename )), (( i.gamescript )),(( i.access_ip ))<br /></label>
                                 </div>
                                 <button type="submit" class="btn btn btn-info">Submit</button>
                             </form>   
@@ -86,4 +79,9 @@
             </div>
         </div>
     </div>
-        
+        <div ng-controller="PlayerController">
+  <button ng-click="play()" class="btn btn btn-default" ng-show="!playing">Play</button>
+  <button ng-click="stop()" class="btn btn btn-info" ng-show="playing">Stop</button>
+  Playing audio: <b>(( playing )) <br />song:(( audio.name ))</b>
+    <h5>today : (( clock |date:'yyyy-MM-dd HH:mm:ss (EEE)'))</h5>
+</div>
