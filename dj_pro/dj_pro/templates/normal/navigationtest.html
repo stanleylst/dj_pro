@@ -80,8 +80,8 @@
         </div>
     </div>
         <div ng-controller="PlayerController">
-  <button ng-click="play()" class="btn btn btn-default" ng-show="!playing">Play</button>
-  <button ng-click="stop()" class="btn btn btn-info" ng-show="playing">Stop</button>
-  Playing audio: <b>(( playing )) <br />song:(( audio.name ))</b>
+  <button ng-click="player.play()" class="btn btn btn-default" ng-show="!player.playing">Play</button>
+  <button ng-click="player.stop()" class="btn btn btn-info" ng-show="player.playing">Stop</button>
+  Playing audio: <b>(( player.playing )) <br />song:(( player.name ))<br />current time:((player.progress|MinSecFilter))</b>
     <h5>today : (( clock |date:'yyyy-MM-dd HH:mm:ss (EEE)'))</h5>
 </div>

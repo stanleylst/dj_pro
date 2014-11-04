@@ -94,21 +94,21 @@ app.factory('audio', ['$document', function($document) {
   return audio;
 }]);
 
-app.factory('player', ['audio','$rootScope', function(audio,$rootScope) {
-    url = '/media/music/機巧少女は傷つかない_op.mp3';
-    audio.src = url;
+app.factory('player', ['audio', function(audio) {
   var player = {
     playing: false,
-    //current: null,
+    name: null,
     ready: false,
-
+ 
     play: function() {
       // If we are playing, stop the current playback
       if (player.playing) player.stop();
-      //var url = '/media/music/機巧少女は傷つかない_op.mp3'; // from the npr API
-      player.name = decodeURI(audio.src.split("/")[5]);
+      var url = '/media/music/機巧少女は傷つかない_op.mp3'; // from the npr API
+      //player.current = program; // Store the current program
+      audio.src = url;
+      player.name = decodeURI(url.split("/")[5]);
       audio.play(); // Start playback of the url
-      player.playing = true;
+      player.playing = true
     },
  
     stop: function() {
@@ -116,63 +116,16 @@ app.factory('player', ['audio','$rootScope', function(audio,$rootScope) {
         audio.pause(); // stop playback
         // Clear the state of the player
         player.ready = player.playing = false; 
-        //player.current = null;
+        player.current = null;
       }
-    },
-
-    currentTime: function() {
-      return audio.currentTime;
-    },
-    currentDuration: function() {
-      return parseInt(audio.duration);
     }
   };
-
-  audio.addEventListener('timeupdate', function(evt) {
-    $rootScope.$apply(function() {
-      player.progress = player.currentTime();
-      player.currenttime = player.currentDuration();
-      player.progress_percent = player.progress / player.currenttime;
-    });
-  });
-
-  audio.addEventListener('ended', function() {
-    $rootScope.$apply(player.stop());
-  });
-
-audio.addEventListener('canplay', function(evt) {
-    $rootScope.$apply(function() {
-      player.ready = true;
-    });
-  });
-
   return player;
-}]); 
-
-app.filter('MinSecFilter', function () {
-    return function (value, max) {      
-        if (value == max) return 'All';      
-            var m = parseInt(value / 60);      
-            var s = parseInt(value % 60);      
-            var mStr = (m > 0) ? m >= 10 ? m  : '0' + m : '00';      
-            var sStr = (s > 0) ? s >= 10 ? s  : '0' + s : '00';      
-            var glue = (mStr && sStr) ? ':' : '';      
-        return mStr + glue + sStr;    
-            };  
-});
+}]);
 
 app.controller('PlayerController', ['$scope', 'player',
   function($scope, player) {
   $scope.player = player;
-
-  var updateClock = function() 
-  {    
-      $scope.clock = new Date();   
-  };  
-var timer = setInterval(function() 
-  {    
-      $scope.$apply(updateClock);  
-  }, 1000);  
 }]);
 
 /*
