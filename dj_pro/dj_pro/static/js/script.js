@@ -168,47 +168,26 @@ app.filter('MinSecFilter', function () {
             };  
 });
 
+
+app.factory('timer',['$rootScope',function($rootScope){
+    var updateClock = function()
+    {    
+        $rootScope.clock = new Date();
+    };
+    var timer = setInterval(function()
+    {    
+      $rootScope.$apply(updateClock);
+    }, 1000);
+}]);
+      
+app.controller('TimeController', ['$scope', 'timer',
+  function($scope, timer) {
+  $scope.timer = timer;
+}]);
+
+
 app.controller('PlayerController', ['$scope', 'player',
   function($scope, player) {
   $scope.player = player;
-
-  var updateClock = function() 
-  {    
-      $scope.clock = new Date();   
-  };  
-var timer = setInterval(function() 
-  {    
-      $scope.$apply(updateClock);  
-  }, 1000);  
 }]);
 
-/*
-app.controller('PlayerController', ['$scope' , 'audio', function($scope , audio) {
-  $scope.playing = false;
-  $scope.audio = audio;
-  $scope.audio.src = '/media/music/機巧少女は傷つかない_op.mp3';
-  $scope.audio.name = decodeURI($scope.audio.src.split("/")[5]);
-  var updateClock = function() 
-    {    
-        $scope.clock = new Date();   
-    };  
-  var timer = setInterval(function() 
-    {    
-        $scope.$apply(updateClock);  
-    }, 1000);  
-    //updateClock();
-  $scope.play = function() {
-    $scope.audio.play();
-    $scope.playing = true;
-  };
-  $scope.stop = function() {
-    $scope.audio.pause();
-    $scope.playing = false;
-  };
-  $scope.audio.addEventListener('ended', function() {
-    $scope.$apply(function() {
-      $scope.stop()
-    });
-  });
-}]);
-*/
