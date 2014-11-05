@@ -97,10 +97,12 @@ app.factory('audio', ['$document', function($document) {
 app.factory('player', ['audio','$rootScope', function(audio,$rootScope) {
     url = '/media/music/機巧少女は傷つかない_op.mp3';
     audio.src = url;
+
   var player = {
     playing: false,
     //current: null,
     ready: false,
+    //mytime: null,
 
     play: function() {
       // If we are playing, stop the current playback
@@ -119,6 +121,11 @@ app.factory('player', ['audio','$rootScope', function(audio,$rootScope) {
         //player.current = null;
       }
     },
+    
+    modifyTime: function(mytime) {
+        audio.currentTime = mytime;
+        return audio.currentTime;
+    },    
 
     currentTime: function() {
       return audio.currentTime;
