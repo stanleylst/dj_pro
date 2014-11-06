@@ -17,8 +17,14 @@ excuted_commands_urls = patterns('',
         url(r'^/(?P<pk>[0-9]+)/$',Excuted_CommandList.as_view(),name='excuted_commands-detail'),
         )
 
+music_urls = patterns('',
+        url(r'^$',MusicList.as_view(),name='musics-list'),
+        url(r'^/(?P<pk>[0-9]+)/$',MusicList.as_view(),name='musics-detail'),
+        )
+
 urlpatterns = patterns('',
         url(r'^users',include(user_urls)),
         url(r'^game_scripts',include(game_script_urls)),
         url(r'^excuted_commands',include(excuted_commands_urls)),
+        url(r'^musics',include(music_urls)),
         )

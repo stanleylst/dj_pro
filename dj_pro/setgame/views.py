@@ -52,3 +52,13 @@ class Excuted_CommandList(Excuted_CommandMixin,generics.ListCreateAPIView):
 
 class Excuted_CommandDetail(Excuted_CommandMixin,generics.RetrieveUpdateDestroyAPIView):
     pass
+
+class MusicMixin(object):
+    model = Music
+    serializer_class = MusicSerializer
+
+class MusicList(MusicMixin,generics.ListCreateAPIView):
+    pass
+
+class MusicDetail(MusicMixin,generics.RetrieveUpdateDestroyAPIView):
+    pass

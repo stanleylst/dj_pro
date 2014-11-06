@@ -84,6 +84,5 @@
   <button ng-click="player.stop()" class="btn btn btn-info" ng-show="player.playing">Stop</button>
   Playing audio: <b>(( player.playing )) <br />song:(( player.name ))<br />current time:((player.progress|MinSecFilter))</b>
   <br />djust time:<input type='number' ng-change="player.modifyTime(player.mytime)" ng-model="player.mytime"/>
-    <h5>mytime</h5>
     <h5 ng-controller="TimeController">today : (( clock |date:'yyyy-MM-dd HH:mm:ss (EEE)'))</h5>
 </div>

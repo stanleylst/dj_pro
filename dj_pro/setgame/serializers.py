@@ -28,3 +28,10 @@ class Excuted_CommandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Excuted_Command
         fields = ('username','game_script','user','script','excute_time')
+
+class MusicSerializer(serializers.ModelSerializer):
+    user = serializers.Field(source='username.username')
+
+    class Meta:
+        model = Music
+        fields = ('username','music_file','music_img','user')
