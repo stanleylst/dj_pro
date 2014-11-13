@@ -1,3 +1,4 @@
+import os.path
 SESSION_COOKIE_DAYS = 90
 SESSION_COOKIE_AGE = 60 * 60 * 24 * SESSION_COOKIE_DAYS
 
@@ -16,6 +17,7 @@ DEV_INSTALLED_APPS = (
     #rest_framework
     'rest_framework',
     'setgame',
+    'djangobower',
 #    'snippets',
 #    'south',
 )
@@ -36,3 +38,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     )
 }
+
+BOWER_INSTALLED_APPS = (
+    'jquery#1.9',
+    'underscore',
+    'angular',
+    'angular-media-player',
+)
+
+BOWER_COMPONENTS_ROOT = os.path.join(os.path.dirname(__file__), 'components').replace('\\','/')
+BOWER_PATH = '/usr/bin/bower'

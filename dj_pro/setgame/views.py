@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from rest_framework import generics,permissions,renderers
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser,FileUploadParser
 
 from .models import *
 from .serializers import *
@@ -58,7 +59,7 @@ class MusicMixin(object):
     serializer_class = MusicSerializer
 
 class MusicList(MusicMixin,generics.ListCreateAPIView):
-    pass
+    parser_classes = (MultiPartParser,FormParser,)
 
 class MusicDetail(MusicMixin,generics.RetrieveUpdateDestroyAPIView):
     pass

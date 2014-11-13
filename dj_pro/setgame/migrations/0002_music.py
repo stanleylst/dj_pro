@@ -17,8 +17,8 @@ class Migration(migrations.Migration):
             name='Music',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('music_file', models.FileField(upload_to=b'/media/music/')),
-                ('music_img', models.ImageField(upload_to=b'/media/img/')),
+                ('music_file', models.FileField(upload_to=b'media/music/')),
+                ('music_img', models.ImageField(upload_to=b'media/img/')),
                 ('username', models.ForeignKey(related_name=b'musics', to=settings.AUTH_USER_MODEL)),
             ],
             options={

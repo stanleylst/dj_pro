@@ -21,8 +21,8 @@ class Excuted_Command(models.Model):
 
 class Music(models.Model):
     username = models.ForeignKey(User,related_name = 'musics')
-    music_file = models.FileField(upload_to='/media/music/')
-    music_img = models.ImageField(upload_to='/media/img/')
+    music_file = models.FileField(upload_to='music')
+    music_img = models.ImageField(upload_to='img')
 
     def __unicode__(self):
         return '%s has %s with image %s'%(self.username,self.music_file,self.music_img)

@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngResource','ngCookies','ui.bootstrap']);
+var app = angular.module('myApp', ['mediaPlayer','ngResource','ngCookies','ui.bootstrap']);
     app.config(function($interpolateProvider) { 
       $interpolateProvider.startSymbol('(('); 
       $interpolateProvider.endSymbol('))');
@@ -26,6 +26,15 @@ app.factory('Game_Script', ['$resource', function($resource) {
                 });
 }]);            
 
+app.factory('Music', ['$resource', function($resource) {
+        return $resource('/setgame/musics/:id', {}, {
+            get:{
+                method: 'GET',
+                isArray: true
+                }
+                });                                                
+}]);            
+
 app.factory('User', ['$resource', function($resource) {
         return $resource('/setgame/users/:id', {'pk': '@pk'}, 
                 {
@@ -48,8 +57,6 @@ app.controller('excuted_command_ctrl', function($scope, Excuted_Command) {
   $scope.excuted_commands = Excuted_Command.query();
 
 });
-
-
 
 app.controller('game_script_ctrl', function($scope, Game_Script) {
   // Get all posts
@@ -88,13 +95,19 @@ app.controller('user_ctrl', function($scope, User) {
         }
 });
 
+app.controller('music_ctrl', function($scope, Music) { 
+  // Get all posts                                   
+    $scope.musics = Music.query();                     
+                                                     
+    $scope.isCollapsed = true;                       
+});
 
 app.factory('audio', ['$document', function($document) {
   var audio = $document[0].createElement('audio');
   return audio;
 }]);
 
-app.factory('player', ['audio','$rootScope', function(audio,$rootScope) {
+app.factory('player', ['audio','$timeout','$rootScope', function(audio,$timeout,$rootScope) {
     url = '/media/music/機巧少女は傷つかない_op.mp3';
     audio.src = url;
 
@@ -125,7 +138,7 @@ app.factory('player', ['audio','$rootScope', function(audio,$rootScope) {
     modifyTime: function(mytime) {
         audio.currentTime = mytime;
         return audio.currentTime;
-    },    
+    },
 
     currentTime: function() {
       return audio.currentTime;
@@ -180,14 +193,28 @@ app.factory('timer',['$rootScope',function($rootScope){
     }, 1000);
 }]);
       
+app.controller('PlayerController', 
+  function($scope) {
+  console.log($scope.audio1);
+  $scope.playlist1=[ 
+    { src: '/media/music/SAVIOR_OF_SONG.mp3', type: 'audio/ogg' },
+    { src: '/media/music/Strike_my_soul.mp3', type: 'audio/ogg' },
+    { src: '/media/music/境界の彼方.mp3', type: 'audio/ogg' },
+    ];
+
+  $scope.playlistname = function(){
+      $scope.audio1;
+  }
+});
+
+playlist1=
+[
+  { src: '/media/music/SAVIOR_OF_SONG.mp3', type: 'audio/ogg' },
+  { src: '/media/music/Strike_my_soul.mp3', type: 'audio/ogg' },
+  { src: '/media/music/境界の彼方.mp3', type: 'audio/ogg' },
+]
+
 app.controller('TimeController', ['$scope', 'timer',
   function($scope, timer) {
   $scope.timer = timer;
 }]);
-
-
-app.controller('PlayerController', ['$scope', 'player',
-  function($scope, player) {
-  $scope.player = player;
-}]);
-

@@ -35,3 +35,4 @@ class MusicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Music
         fields = ('username','music_file','music_img','user')
+
