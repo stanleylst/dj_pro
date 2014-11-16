@@ -85,9 +85,6 @@
                 </form>
         </div>
         <div ng-controller="PlayerController">
-            <ul >
-                <li ng-repeat="b in goquery">(( b ))</li>
-            </ul>
             <audio media-player="audio1" data-playlist="playlist1">
             </audio>
             <span ng-show="audio1.playing">Player status: Playing</span>
@@ -98,8 +95,7 @@
   <button ng-click="audio1.pause()" class="btn btn btn-info" ng-show="audio1.playing">Stop</button>
   <button ng-click="audio1.next()" class="btn btn btn-info">Next</button>
 
-  Playing audio: <b>(( audio1.playing )) <br />
-   image: <img src=((playlist1[audio1.currentTrack-1].img)) width="50" height="50">  song:((playlist1[audio1.currentTrack-1].src.split("/")[3]))<br />current time:((audio1.currentTime|MinSecFilter))</b>
+  Playing audio: <b>(( audio1.playing )) <br />song:((playlist1[audio1.currentTrack-1].src.split("/")[3]))<br />current time:((audio1.currentTime|MinSecFilter))</b>
   <br />djust time:<input type='number' ng-change="audio1.seek(value)" ng-model="value"/>
   <br />load percent:((audio1.loadPercent))%
   <br />djust volume:<input type='number' ng-change="audio1.setVolume(volume/100)" ng-model="volume"/>

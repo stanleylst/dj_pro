@@ -193,26 +193,23 @@ app.factory('timer',['$rootScope',function($rootScope){
     }, 1000);
 }]);
       
-app.controller('PlayerController', 
-  function($scope) {
-  console.log($scope.audio1);
-  $scope.playlist1=[ 
-    { src: '/media/music/SAVIOR_OF_SONG.mp3', type: 'audio/ogg' },
-    { src: '/media/music/Strike_my_soul.mp3', type: 'audio/ogg' },
-    { src: '/media/music/境界の彼方.mp3', type: 'audio/ogg' },
-    ];
-
-  $scope.playlistname = function(){
-      $scope.audio1;
-  }
+app.controller('PlayerController',
+  function($scope,Music) {
+    $scope.musics = Music.query();                     
+    $scope.goquery=Music.query(function(musics){             //对query的值处理一定要放在这里
+    $scope.mymusic = musics;                         
+    $scope.musiclist = [];
+    for (i in $scope.mymusic)                                  //取得musiclist数组   
+        $scope.musiclist.push({src:'/media/'+$scope.mymusic[i].music_file, type : "audio/ogg",img:'/media/'+$scope.mymusic[i].music_img});
+    $scope.playlist1= $scope.musiclist;
+    });
 });
 
-playlist1=
-[
+playlist1=[
   { src: '/media/music/SAVIOR_OF_SONG.mp3', type: 'audio/ogg' },
   { src: '/media/music/Strike_my_soul.mp3', type: 'audio/ogg' },
   { src: '/media/music/境界の彼方.mp3', type: 'audio/ogg' },
-]
+  ];
 
 app.controller('TimeController', ['$scope', 'timer',
   function($scope, timer) {
