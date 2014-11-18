@@ -13,6 +13,13 @@ var app = angular.module('myApp', ['mediaPlayer','ngResource','ngCookies','ui.bo
 
 app.factory('Excuted_Command', ['$resource', function($resource) {
         return $resource('/setgame/excuted_commands/:id', {pk:'@pk'}, {
+            query:{
+                method: 'GET',
+                isArray: true
+                },
+            save: {
+                method: 'POST'
+                },
                 });
 }]);
 
@@ -23,6 +30,7 @@ app.factory('Game_Script', ['$resource', function($resource) {
                 isArray: true
                 }
                 });
+            
 }]);            
 
 app.factory('Music', ['$resource', function($resource) {
@@ -58,14 +66,26 @@ app.factory('User', ['$resource', function($resource) {
 }]);            
 
 app.controller('excuted_command_ctrl', function($scope, Excuted_Command) {
-  // Get all posts
-  $scope.excuted_commands = Excuted_Command.query();
+    // Get all posts
+    $scope.excuted_commands = Excuted_Command.query();
+
+    $scope.Excuted_CommandData = {};
+    $scope.Excuted_CommandPost = function() {
+        var post = new Excuted_Command($scope.Excuted_CommandData);
+        $scope.Excuted_CommandData.username = 1;
+        $scope.Excuted_CommandData.game_script =[];
+        $("input[type=checkbox]:checked").each ( function() {
+            $scope.Excuted_CommandData.game_script.push( $(this).val() )
+        });
+        alert("Command:"+ $scope.Excuted_CommandData.game_script);
+        //post.$save($scope.Excuted_CommandData);
+    };
 
 });
 
 app.controller('game_script_ctrl', function($scope, Game_Script) {
-  // Get all posts
-  $scope.game_scripts = Game_Script.query();
+    // Get all posts
+    $scope.game_scripts = Game_Script.query();
  
     Game_Script.query(function(game_scripts){             //对query的值处理一定要放在这里 
         $scope.gamename = game_scripts;
@@ -78,9 +98,9 @@ app.controller('game_script_ctrl', function($scope, Game_Script) {
             if($.inArray(el, $scope.gamename_uniq) === -1) $scope.gamename_uniq.push(el);
         });
         
-     }); 
+        }); 
 
-  $scope.isCollapsed = true;
+    $scope.isCollapsed = true;
 });    
 
 app.controller('user_ctrl', function($scope, User) {

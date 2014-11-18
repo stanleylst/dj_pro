@@ -15,19 +15,17 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class Game_ScriptSerializer(serializers.ModelSerializer):
-    excuted_commands = serializers.RelatedField(many=True,read_only=True)
 
     class Meta:
         model = Game_Script
-        fields = ('gamename','gamescript','access_ip','excuted_commands')
+        fields = ('gamename','gamescript','access_ip')
 
 class Excuted_CommandSerializer(serializers.ModelSerializer):
     user = serializers.Field(source='username.username')
-    script = serializers.Field(source='game_script.gamescript')
 
     class Meta:
         model = Excuted_Command
-        fields = ('username','game_script','user','script','excute_time')
+        fields = ('username','game_script','user','excute_time')
 
 class MusicSerializer(serializers.ModelSerializer):
     user = serializers.Field(source='username.username')

@@ -51,8 +51,8 @@
                 <div ng-repeat="a in gamename_uniq" class="col-md-6 column">
                     <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">((a))</button>
                     <div collapse="isCollapsed">
-                        <div class="well well-lg">
-                            <form role="form">
+                        <div class="well well-lg" ng-controller="excuted_command_ctrl">
+                            <form role="form" ng-submit="Excuted_CommandPost()">
                                 <div class="checkbox">
                                     <label ng-repeat="i in game_scripts|filter:{gamename:((a))}"><input type="checkbox" value="(( i.gamename )), (( i.gamescript )),(( i.access_ip ))" name="get_list"> (( i.gamename )), (( i.gamescript )),(( i.access_ip ))<br /></label>
                                 </div>

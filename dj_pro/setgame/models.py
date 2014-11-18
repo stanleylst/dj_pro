@@ -12,7 +12,7 @@ class Game_Script(models.Model):
         return '%s on game %s'%(self.gamescript,self.gamename)
 
 class Excuted_Command(models.Model):
-    game_script = models.ForeignKey(Game_Script,related_name = 'excuted_commands')
+    game_script = models.CharField(max_length=150)
     excute_time = models.DateField(auto_now_add = True)
     username = models.ForeignKey(User,related_name = 'excuted_commands')
 
