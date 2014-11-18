@@ -74,65 +74,79 @@
         </div>
                 <br />
         </div class="col-md-12 column">
-                <form ng-submit="newPost()">
+                <form ng-submit="UserPost()">
                     {% csrf_token %}
                     <label>New User:</label>
-                    <input type="text" name="username" id="" value="" ng-model="postData.username"/>
+                    <input type="text" name="username" id="" value="" ng-model="UserData.username"/>
                     <br /><label>password:</label>
-                    <input type="password" name="password" id="" value="" ng-model="postData.password"/>
+                    <input type="password" name="password" id="" value="" ng-model="UserData.password"/>
                     <br /><button type="submit" class="btn btn btn-primary">Create</button>
                         
                 </form>
         </div>
-        <div ng-controller="PlayerController">
-            <audio media-player="audio1" data-playlist="playlist1">
-            </audio>
-       <span>image:</span> <img src="((playlist1[audio1.currentTrack-1].img))" 
-        class="img-thumbnail" width="100" height="100">  song:((playlist1[audio1.currentTrack-1].src.split("/")[3]))
-            <br />current time:((audio1.currentTime|MinSecFilter))</b>
-        <br/>
-<div class="row col-sm-3 column">
-<div class="progress">
-
-    <div class="progress-bar" role="progressbar" style="height:18px;width:((audio1.currentTime/audio1.duration*100))%;">
-      <span class="sr-only">((audio1.currentTime/audio1.duration*100))% </span>
+<div ng-controller="PlayerController">
+    <audio media-player="audio1" data-playlist="playlist1"></audio>
+    <span>image:</span> <img src="((playlist1[audio1.currentTrack-1].img))" class="img-thumbnail" width="100" height="100">  
+    <span>song:((playlist1[audio1.currentTrack-1].src.split("/")[3]))</span>
+    <br />current time:((audio1.currentTime|MinSecFilter))
+    <br/>
+    <div class="row col-sm-3 column">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="height:18px;width:((audio1.currentTime/audio1.duration*100))%;">
+            <span>((audio1.currentTime/audio1.duration*100|number:0))% </span>
+            </div>
+            <div class="progress-bar progress-bar-info" style="height:18px;width: ((audio1.loadPercent-audio1.currentTime/audio1.duration*100))%;">
+            <span>load:((audio1.loadPercent))%</span>
+            </div>
+        </div>  
     </div>
-    <div class="progress-bar progress-bar-info" style="height:18px;width: ((audio1.loadPercent-audio1.currentTime/audio1.duration*100))%;">
-        <span class="sr-only">load percent:((audio1.loadPercent))%</span>
+    <br/>
+    <br/>
+    <div>
+        <span ng-show="audio1.playing">Player status: Playing</span>
+        <span ng-show="!audio1.playing">Player status: Paused</span>
+        <br />
+        <button ng-click="audio1.prev()" class="btn btn btn-info">Prev</button>
+        <button ng-click="audio1.play()" class="btn btn btn-default" ng-show="!audio1.playing">Play</button>
+        <button ng-click="audio1.pause()" class="btn btn btn-info" ng-show="audio1.playing">Stop</button>
+        <button ng-click="audio1.next()" class="btn btn btn-info">Next</button>
+        <br />
+        <br />
     </div>
-</div>  
-</div>
-<br/>
-<br/>
-            <span ng-show="audio1.playing">Player status: Playing</span>
-            <span ng-show="!audio1.playing">Player status: Paused</span>
-            <br />
-  <button ng-click="audio1.prev()" class="btn btn btn-info">Prev</button>
-  <button ng-click="audio1.play()" class="btn btn btn-default" ng-show="!audio1.playing">Play</button>
-  <button ng-click="audio1.pause()" class="btn btn btn-info" ng-show="audio1.playing">Stop</button>
-  <button ng-click="audio1.next()" class="btn btn btn-info">Next</button>
+    <div class="row">
+    <div class="col-sm-1 column">
+    <span>adjust time:</span>
+        <input type='number' min='1' class="form-control" ng-change="audio1.seek(value)" ng-model="value"/>
+    </div>
+    <div class="col-sm-1 column">
+    <span>adjust vol:</span>
+        <input type='number' min='1' max='100' class="form-control" ng-change="audio1.setVolume(volume/100)" ng-model="volume"/>
+    </div>
+    </div>
 
-<br />
-<br />
-<div "row col-sm-3 column">
-<span>djust time:</span><input type='number' ng-change="audio1.seek(value)" ng-model="value"/>
-</div>
-<br/>
-<div "row col-sm-3 column">
-    <span>adjust volume:</span>
-    <input type='number' ng-change="audio1.setVolume(volume/100)" ng-model="volume"/>
-</div>
-  </div class="col-md-12 column">
-        <form ng-submit="newPost()">
-            {% csrf_token %}
-            <label>upload music:</label>
-            <input type="file" name="music_file" id="" value="file" ng-model="post.music_file"/>
-            <br /><label>upload image:</label>
-            <input type="file" name="music_img" id="" value="image" ng-model="post.music_img"/>
-            <br /><button type="submit" class="btn btn btn-primary">upload</button>
+    <div class="col-sm-3 column">
+    <accordion>
+        <accordion-group is-open="status.open">
+        <accordion-heading>Add a song <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></accordion-heading>
+        <div class="col-md-12 column" ng-controller="music_ctrl">
+            <form action="/setgame/musics" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>upload music:</label>
+                <input type="file" name="music_file" id="" value="file" />
+                <br /><label>upload image:</label>
+                <input type="file" name="music_img" id="" value="image" />
+                <input type="text" name="username" id="" />
+                <br /><button type="submit" class="btn btn btn-primary">upload</button>
                 
-        </form>
-    </div>  
-  
-    <h5 ng-controller="TimeController">today : (( clock |date:'yyyy-MM-dd HH:mm:ss (EEE)'))</h5>
+            </form>
+        </div>  
+        </accordion-group>
+    </accordion>
+    </div>
+<br/>
+<br/>
+<br/>
+    <div class="row col-sm-12 column">
+        <h5 ng-controller="TimeController">today : (( clock |date:'yyyy-MM-dd HH:mm:ss (EEE)'))</h5>
+    </div>
 </div>

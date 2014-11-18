@@ -18,9 +18,8 @@ app.factory('Excuted_Command', ['$resource', function($resource) {
 
 app.factory('Game_Script', ['$resource', function($resource) {
         return $resource('/setgame/game_scripts/:id', {}, {
-            get:{
+            query:{
                 method: 'GET',
-                transformResponse: function (data) {return angular.fromJson(data).list},
                 isArray: true
                 }
                 });
@@ -28,10 +27,16 @@ app.factory('Game_Script', ['$resource', function($resource) {
 
 app.factory('Music', ['$resource', function($resource) {
         return $resource('/setgame/musics/:id', {}, {
-            get:{
+            query:{
                 method: 'GET',
                 isArray: true
-                }
+                },
+            save: {
+                method: 'POST'
+                },
+            remove: {
+                method: 'DELTET'
+                },
                 });                                                
 }]);            
 
@@ -84,21 +89,37 @@ app.controller('user_ctrl', function($scope, User) {
 
     $scope.isCollapsed = true;
     
-    $scope.postData = {};
-    $scope.newPost = function() {
-        var post = new User($scope.postData);
-        alert("your register name is:"+ $scope.postData.username+"\npassword is:"+$scope.postData.password);
-        post.$save($scope.postData);
+    $scope.UserData = {};
+    $scope.UserPost = function() {
+        var post = new User($scope.UserData);
+        alert("your register name is:"+ $scope.UserData.username+"\npassword is:"+$scope.UserData.password);
+        post.$save($scope.UserData);
         $location.path(/11/);
         window.location.reload();
         $scope.$apply(); 
         }
 });
 
-app.controller('music_ctrl', function($scope, Music) { 
+app.controller('music_ctrl', function($http,$scope, Music) { 
   // Get all posts                                   
     $scope.musics = Music.query();                     
-                                                     
+   
+    $scope.uploadFile = function(files) {
+    var fd = new FormData();
+    //Take the first selected file
+    fd.append("file", files[0]);
+    fd.append("file", files[1]);
+    fd.append("name", "username");
+    
+
+    $http.post('/setgame/musics/:id', fd, {
+        withCredentials: true,
+        headers: {'Content-Type': undefined },
+        transformRequest: angular.identity
+    }).success("... all right! ..." ).error( "...damn!..." );
+
+};   
+
     $scope.isCollapsed = true;                       
 });
 
