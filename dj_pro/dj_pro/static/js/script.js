@@ -12,13 +12,14 @@ var app = angular.module('myApp', ['mediaPlayer','ngResource','ngCookies','ui.bo
     });
 
 app.factory('Excuted_Command', ['$resource', function($resource) {
-        return $resource('/setgame/excuted_commands/:id', {pk:'@pk'}, {
+        return $resource('/setgame/excuted_commands/:id', {}, {
             query:{
                 method: 'GET',
                 isArray: true
                 },
             save: {
-                method: 'POST'
+                method: 'POST',
+                isArray: false
                 },
                 });
 }]);
@@ -68,17 +69,16 @@ app.factory('User', ['$resource', function($resource) {
 app.controller('excuted_command_ctrl', function($scope, Excuted_Command) {
     // Get all posts
     $scope.excuted_commands = Excuted_Command.query();
-
-    $scope.Excuted_CommandData = {};
+    
+    $scope.Excuted_CommandData={};
     $scope.Excuted_CommandPost = function() {
-        var post = new Excuted_Command($scope.Excuted_CommandData);
         $scope.Excuted_CommandData.username = 1;
         $scope.Excuted_CommandData.game_script =[];
         $("input[type=checkbox]:checked").each ( function() {
             $scope.Excuted_CommandData.game_script.push( $(this).val() )
         });
-        alert("Command:"+ $scope.Excuted_CommandData.game_script);
-        //post.$save($scope.Excuted_CommandData);
+        alert("Command:"+ $scope.Excuted_CommandData);
+        $scope.Excuted_CommandData = Excuted_Command.save($scope.Excuted_CommandData);
     };
 
 });
