@@ -8,6 +8,8 @@ from rest_framework.parsers import MultiPartParser, FormParser,FileUploadParser
 from .models import *
 from .serializers import *
 # Create your views here.
+import os
+
 class UserList(generics.ListCreateAPIView):
     model = User
     serializer_class = UserSerializer
@@ -49,7 +51,12 @@ class Excuted_CommandMixin(object):
     serializer_class = Excuted_CommandSerializer
 
 class Excuted_CommandList(Excuted_CommandMixin,generics.ListCreateAPIView):
-    pass
+
+    def post(self,request,*args,**kwargs):
+        response = super(Excuted_CommandList,self).post(request,*args,**kwargs)
+        with open('/tmp/django.txt','w+') as f:
+            f.write(response.data['game_script'])
+        return response
 
 class Excuted_CommandDetail(Excuted_CommandMixin,generics.RetrieveUpdateDestroyAPIView):
     pass
