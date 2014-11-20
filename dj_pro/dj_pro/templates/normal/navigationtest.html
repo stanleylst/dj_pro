@@ -84,12 +84,14 @@
                         
                 </form>
         </div>
+
 <div ng-controller="PlayerController">
     <audio media-player="audio1" data-playlist="playlist1"></audio>
-    <span>image:</span> <img src="((playlist1[audio1.currentTrack-1].img))" class="img-thumbnail" width="100" height="100">  
+    <span>image:</span> <img ng-src="((playlist1[audio1.currentTrack-1].img))" class="img-thumbnail" width="100" height="100">  
     <span>song:((playlist1[audio1.currentTrack-1].src.split("/")[3]))</span>
     <br />current time:((audio1.currentTime|MinSecFilter))
     <br/>
+    
     <div class="row col-sm-3 column">
         <div class="progress">
             <div class="progress-bar" role="progressbar" style="height:18px;width:((audio1.currentTime/audio1.duration*100))%;">
@@ -102,27 +104,46 @@
     </div>
     <br/>
     <br/>
+
     <div>
         <span ng-show="audio1.playing">Player status: Playing</span>
         <span ng-show="!audio1.playing">Player status: Paused</span>
         <br />
-        <button ng-click="audio1.prev()" class="btn btn btn-info">Prev</button>
+        <button ng-click="myprev()" class="btn btn btn-info">Prev</button>
         <button ng-click="audio1.play()" class="btn btn btn-default" ng-show="!audio1.playing">Play</button>
         <button ng-click="audio1.pause()" class="btn btn btn-info" ng-show="audio1.playing">Stop</button>
-        <button ng-click="audio1.next()" class="btn btn btn-info">Next</button>
+        <button ng-click="mynext()" class="btn btn btn-info">Next</button>
+        <button ng-click="repeat_func()" class="btn btn btn-default" ng-show="!repeat">Repeat Once</button>
+        <button ng-click="repeat_func()" class="btn btn btn-info" ng-show="repeat">Cancel Repeat </button>
         <br />
         <br />
     </div>
     <div class="row">
-    <div class="col-sm-1 column">
-    <span>time(s):</span>
-        <input type='number' min='1' class="form-control" ng-change="audio1.seek(value)" ng-model="value"/>
+        <div class="col-sm-1 column">
+            <span>time(s):</span>
+            <input type='number' min='1' class="form-control" ng-change="audio1.seek(value)" ng-model="value"/>
+        </div>
+        <div class="col-sm-1 column">
+            <span>volume:</span>
+            <input type='number' min='1' max='100' class="form-control" ng-change="audio1.setVolume(volume/100)" ng-model="volume"/>
+        </div>
     </div>
-    <div class="col-sm-1 column">
-    <span>volume:</span>
-        <input type='number' min='1' max='100' class="form-control" ng-change="audio1.setVolume(volume/100)" ng-model="volume"/>
+    <br/>
+    <div class="col-md-6 column">
+        <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">music list</button>
+        <div collapse="isCollapsed">
+            <div class="col-sm-4 column">
+                <div class="col-md-12 column" ng-repeat="music in musiclist">
+                    <span>image: </span> <img ng-src="((music.img))" class="img-thumbnail" width="100" height="100">
+                    <button ng-click="audio1.play(music.id-1+1)" class="btn btn btn-default"><span>song:((music.src.split("/")[3]))</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
+
+    <br/>
+    <br/>
 
     <div class="col-sm-3 column">
     <accordion>

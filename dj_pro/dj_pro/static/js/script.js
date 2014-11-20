@@ -241,9 +241,51 @@ app.controller('PlayerController',
     $scope.mymusic = musics;                         
     $scope.musiclist = [];
     for (i in $scope.mymusic)                                  //取得musiclist数组   
-        $scope.musiclist.push({owner: $scope.mymusic[i].username,src:'/media/'+$scope.mymusic[i].music_file, type : "audio/ogg",img:'/media/'+$scope.mymusic[i].music_img});
+        $scope.musiclist.push({id:i,owner: $scope.mymusic[i].username,src:'/media/'+$scope.mymusic[i].music_file, type : "audio/ogg",img:'/media/'+$scope.mymusic[i].music_img});
     $scope.playlist1= $scope.musiclist;
+ 
+    
+    $scope.repeat = false;
+    $scope.repeat_func = function(){
+            $scope.repeat = !$scope.repeat;
+    };
+    
+    function mkchange(){
+        $scope.repeat = true;
+        console.log('here');
+    };
+    
+    $scope.mynext = function(){
+        if($scope.repeat == true){
+            $scope.repeat = false;
+            $scope.audio1.next();
+            setTimeout(mkchange,3000);
+            }else{$scope.audio1.next();};
+    };
+    
+     
+ $scope.myprev = function(){
+     if($scope.repeat == true){
+         $scope.repeat = false;
+         $scope.audio1.prev();
+         setTimeout(mkchange,3000);
+         }else{$scope.audio1.prev();};
+ };
+
+    $scope.gorepeat = setInterval(function()
+    {
+    console.log( $scope.audio1.formatTime+ '   ' + Math.round($scope.audio1.currentTime));
+    if ( $scope.repeat == true && $scope.audio1.playing == true && Math.round($scope.audio1.currentTime) in [0,1] ){
+        $scope.repeat = false;
+        $scope.audio1.prev();
+        setTimeout(mkchange,3000);
+        console.log('now');
+        };
+ }, 1000);
     });
+
+    $scope.isCollapsed = true;
+
 });
 
 app.controller('TimeController', ['$scope', 'timer',
