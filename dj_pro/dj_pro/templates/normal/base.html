@@ -31,13 +31,29 @@
         <script src="//mrgamer.github.io/angular-media-player/dist/angular-media-player.js" type="text/javascript"></script>
         <script src="//mrgamer.github.io/angular-media-player/dist/angular-media-player.min.js" type="text/javascript"></script>
         <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
-        <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/angular-controller/main.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-factory/MinSecFilter.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-factory/timer.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-factory/User.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-factory/Music.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-factory/Game_Script.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-factory/Excuted_Command.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/angular-controller/game_script_ctrl.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-controller/excuted_command_ctrl.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-controller/user_ctrl.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-controller/music_ctrl.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-controller/TimeController.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/angular-controller/PlayerController.js' %}"></script>
     </head>    
     <body ng-app="myApp">
         <div class="container-fluid">
-            
+            <div class="col-md-12 column">
+                <br />
+                <hr />
+            </div>
             {% block content %}{% endblock %}
-
         </div>
     </body>
 </html>

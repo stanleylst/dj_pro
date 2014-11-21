@@ -274,12 +274,16 @@ app.controller('PlayerController',
 
     $scope.gorepeat = setInterval(function()
     {
-    console.log( $scope.audio1.formatTime+ '   ' + Math.round($scope.audio1.currentTime));
     if ( $scope.repeat == true && $scope.audio1.playing == true && Math.round($scope.audio1.currentTime) in [0,1] ){
         $scope.repeat = false;
         $scope.audio1.prev();
         setTimeout(mkchange,3000);
         console.log('now');
+        }else if($scope.repeat == true && $scope.audio1.ended == true){
+        $scope.repeat = false;
+        $scope.audio1.play();
+        setTimeout(mkchange,3000);
+        console.log('last one');
         };
  }, 1000);
     });

@@ -9,4 +9,6 @@ var app = angular.module('myApp', ['mediaPlayer','ngResource','ngCookies','ui.bo
         // Add the following two lines
         $http.defaults.xsrfCookieName = 'csrftoken';
         $http.defaults.xsrfHeaderName = 'X-CSRFToken';
-    });         
+    });
+
+

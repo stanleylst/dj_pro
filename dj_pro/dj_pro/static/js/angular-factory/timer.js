@@ -8,8 +8,3 @@ app.factory('timer',['$rootScope',function($rootScope){
       $rootScope.$apply(updateClock);
     }, 1000);
 }]);
-
-app.controller('TimeController', ['$scope', 'timer',
-    function($scope, timer) {
-    $scope.timer = timer;
-}]);

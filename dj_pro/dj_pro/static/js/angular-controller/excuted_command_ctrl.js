@@ -1,17 +1,3 @@
-app.factory('Excuted_Command', ['$resource', function($resource) {
-        return $resource('/setgame/excuted_commands/:id', {}, {
-            query:{
-                method: 'GET',
-                isArray: true
-                },
-            save: {
-                method: 'POST',
-                isArray: false
-                },
-                });
-}]);
-
-
 app.controller('excuted_command_ctrl', function($scope, Excuted_Command) {
     // Get all posts
     $scope.excuted_commands = Excuted_Command.query();
