@@ -1,0 +1,23 @@
+<script type="text/javascript" charset="utf-8">
+    app.controller('CookieCtrl', function ($scope, $rootScope, $cookieStore) {
+        $scope.bump = function () {
+            var lastVal = $cookieStore.get('lastValue');
+            if (!lastVal) {
+                $rootScope.lastVal = 1;
+            } else {
+            $rootScope.lastVal = lastVal + 1;
+            console.log($rootScope.lastVal);
+            }
+            $cookieStore.put('lastValue', $rootScope.lastVal);
+        }
+    });
+    app.controller('ShowerCtrl', function () {
+    });
+</script>
+
+<div>
+    <div id="lastVal" ng-controller="ShowerCtrl">{{ lastVal }}</div>
+    <div id="button-holder" ng-controller="CookieCtrl">
+        <button ng-click="bump()">Bump!</button>
+    </div>
+</div>
