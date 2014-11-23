@@ -12,47 +12,50 @@ app.controller('PlayerController',
     
  
     $scope.repeat = false;
+    $scope.canturn = true;
     $scope.repeat_func = function(){
             $scope.repeat = !$scope.repeat;
     };      
     
-    function mkchange(){
-        $scope.repeat = true;
-        console.log('here');
+    function canturn(){
+        $scope.canturn = true;
+        console.log('now can repeat');
     };  
     
     $scope.mynext = function(){
         if($scope.repeat == true){
-            $scope.repeat = false;
             $scope.audio.next();
-            setTimeout(mkchange,3000);
+            $scope.canturn = false;
+            setTimeout(canturn,200);
             }else{$scope.audio.next();};
     };      
     
     
     $scope.myprev = function(){
         if($scope.repeat == true){
-            $scope.repeat = false;
             $scope.audio.prev();
-            setTimeout(mkchange,3000);
+            $scope.canturn = false;
+            setTimeout(canturn,200);
             }else{$scope.audio.prev();};
     };      
- 
-    $scope.gorepeat = setInterval(function()
-    {
-    if ( $scope.repeat == true && $scope.audio.playing == true && Math.round($scope.audio.currentTime) in [0,1] ){
-        $scope.repeat = false;
-        $scope.audio.prev();
-        setTimeout(mkchange,3000);
-        console.log('now');
-        }else if($scope.repeat == true && $scope.audio.ended == true){
-        $scope.repeat = false;
-        $scope.audio.play();
-        setTimeout(mkchange,3000);
-        console.log('last one');
+
+    $scope.$watch('audio.ended',function() {
+        console.log($scope.audio.ended+'    '+$scope.audio.currentTrack);
+        console.log('go here?');
+        var curr_num = parseInt($scope.audio.currentTrack)-1;
+        if($scope.audio.ended == undefined && $scope.repeat == true && $scope.canturn == true){
+            console.log('go repeat');
+            $scope.audio.play(curr_num-1);
+            };
+        if($scope.audio.ended == true && $scope.repeat == true && $scope.canturn == true){
+            console.log('last song');
+            $scope.audio.play();
+            $scope.canturn = false;
+            setTimeout(canturn,200);
         };
- }, 1000);
+
     });
+});
 
     $scope.isCollapsed = true;
 
