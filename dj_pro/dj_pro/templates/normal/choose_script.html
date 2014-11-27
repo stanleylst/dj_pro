@@ -1,14 +1,20 @@
 <div ng-controller="game_script_ctrl">
     <div ng-repeat="a in gamename_uniq" class="col-md-6 column">
-        <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">((a))</button>
-        <div collapse="isCollapsed">
+        <button class="btn btn-primary" ng-click="isCollapsed1 = !isCollapsed1">((a))</button>
+        <div collapse="isCollapsed1">
             <div class="well well-lg" ng-controller="excuted_command_ctrl">
-                <form role="form" ng-submit="Excuted_CommandPost()">
-                    <div class="checkbox">
-                        <label ng-repeat="i in game_scripts|filter:{gamename:((a))}"><input type="checkbox" value="(( i.gamename )), (( i.gamescript )),(( i.access_ip ))" name="get_list"> (( i.gamename )), (( i.gamescript )),(( i.access_ip ))<br /></label>
-                    </div>
-                    <button type="submit" class="btn btn btn-info">Submit</button>
-                </form>
+                <div ng-repeat="b in gamename_uniq_ip" class="col-md-6 column">
+                    <button class="btn btn-info" ng-click="isCollapsed2 = !isCollapsed2" ng-show="has_ip(a,b)">((b))</button>
+                    <div collapse="isCollapsed2">
+                        <form role="form" ng-submit="Excuted_CommandPost()">
+                            <div class="checkbox">
+                                <label ng-repeat="i in game_scripts|filter:{gamename:((a)),access_ip:((b))}"><input type="checkbox" value="(( i.gamename )), (( i.gamescript )),(( i.access_ip ))" name="get_list"> (( i.gamescript ))<br /></label>
+                            </div>
+                        <button type="submit" class="btn btn btn-info">Submit</button>
+                    </form>
+                </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>

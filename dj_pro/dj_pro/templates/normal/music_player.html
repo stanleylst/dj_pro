@@ -1,5 +1,15 @@
 <div ng-controller="PlayerController" class="col-md-12 column">
     <audio media-player="audio" data-playlist="playlist"></audio>
+
+    <div ng-controller="user_ctrl" class="col-md-12 column">
+        <div class="col-md-2 column">
+            <span>change music list via user:</span>
+            <select class="form-control" ng-model="owner" ng-change="ownerchange(owner)" ng-options="i.username for i in users"> 
+                <option value="">change music list</option>
+            </select>
+        </div>
+    </div>
+
     <span>image:</span> <img ng-src="((playlist[audio.currentTrack-1].img))" class="img-thumbnail" width="100" height="100">
     <span>song:((playlist[audio.currentTrack-1].src.split("/")[3]))</span>
     <br />current time:((audio.currentTime|MinSecFilter))
