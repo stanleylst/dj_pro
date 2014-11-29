@@ -6,7 +6,7 @@ app.factory('Excuted_Command', ['$resource', function($resource) {
                 },
             save: {
                 method: 'POST',
-                isArray: false
+                isArray: false,
                 },
                 });
 }]);

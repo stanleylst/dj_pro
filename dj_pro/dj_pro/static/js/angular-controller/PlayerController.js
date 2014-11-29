@@ -23,18 +23,27 @@ app.controller('PlayerController',
         };
     };
 
+    for (i in $scope.musiclist){                                       // fix user musiclist id;
+        $scope.musiclist[i].id=i;                                     
+        console.log($scope.musiclist[i]);
+    };
+
     $scope.playlist= $scope.musiclist;
 
     console.log($scope.playlist);
     $scope.sum_num = parseInt($scope.playlist[$scope.playlist.length-1].id)+1;
+    $scope.person_num = parseInt($scope.playlist.length);
+    console.log($scope.sum_num);
 
     $scope.audio.play(0);
     });
  
     $scope.repeat = false;                                   //the following is all to solve repeating a song
     $scope.canturn = true;
+    $scope.loop = false;
     $scope.repeat_func = function(){
             $scope.repeat = !$scope.repeat;
+            if($scope.repeat == true){ $scope.loop = false;};
     };      
     
     function canturn(){
@@ -59,6 +68,11 @@ app.controller('PlayerController',
             }else{$scope.audio.prev();};
     };      
     
+    $scope.goloop = function(){
+        $scope.loop = !$scope.loop;
+        if($scope.loop == true){ $scope.repeat = false;};
+    };
+    
     $scope.$watch('audio.ended',function() {
         console.log($scope.audio.ended+'    '+$scope.audio.currentTrack);
         console.log('go here?');
@@ -75,8 +89,14 @@ app.controller('PlayerController',
         };
         console.log('end watch');
         console.log($scope.audio.ended+'    '+$scope.audio.currentTrack);
-        if( curr_num == -1){
+
+        if( curr_num == -1){                                            //start music when open the web
             console.log('first');
+            $scope.audio.play(0);
+        };
+
+        if( $scope.loop == true && $scope.repeat == false && $scope.audio.ended == true){
+            console.log('return to first');
             $scope.audio.play(0);
         };
 

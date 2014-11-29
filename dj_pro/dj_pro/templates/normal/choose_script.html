@@ -10,11 +10,13 @@
                             <div class="checkbox">
                                 <label ng-repeat="i in game_scripts|filter:{gamename:((a)),access_ip:((b))}"><input type="checkbox" value="(( i.gamename )), (( i.gamescript )),(( i.access_ip ))" name="get_list"> (( i.gamescript ))<br /></label>
                             </div>
-                        <button type="submit" class="btn btn btn-info">Submit</button>
+                            <button type="submit" class="btn btn btn-info">Submit</button>
+                            <div>
+                                <p>result:((result))</p>
+                            </div>
                     </form>
+                    </div>
                 </div>
-                </div>
-            </div>
             </div>
         </div>
     </div>
