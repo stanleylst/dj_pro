@@ -56,7 +56,8 @@ class Excuted_CommandList(Excuted_CommandMixin,generics.ListCreateAPIView):
         response = super(Excuted_CommandList,self).post(request,*args,**kwargs)
         with open('/tmp/django.txt','w+') as f:
             f.write(response.data['game_script'])
-        return response
+        result = 'result succeed!'
+        return Response({'result':result})
 
 class Excuted_CommandDetail(Excuted_CommandMixin,generics.RetrieveUpdateDestroyAPIView):
     pass
