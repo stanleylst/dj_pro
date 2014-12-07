@@ -8,7 +8,13 @@ from rest_framework.parsers import MultiPartParser, FormParser,FileUploadParser
 from .models import *
 from .serializers import *
 # Create your views here.
-import os
+import os,ast
+
+# My scripts
+import sys
+sys.path.insert(0, 'dj_pro/scripts')
+from lyingdragon_script import *
+from pythonssh import *
 
 class UserList(generics.ListCreateAPIView):
     model = User
@@ -54,9 +60,20 @@ class Excuted_CommandList(Excuted_CommandMixin,generics.ListCreateAPIView):
 
     def post(self,request,*args,**kwargs):
         response = super(Excuted_CommandList,self).post(request,*args,**kwargs)
-        with open('/tmp/django.txt','w+') as f:
-            f.write(response.data['game_script'])
-        result = 'result succeed!'
+        raw_start = [ item.encode('ascii') for item in ast.literal_eval(response.data['game_script']) ]
+        start_command = start_game_args(raw_start)
+        with open('/tmp/script_result.txt','w+') as f:
+            f.write(start_command)
+        hostfile = '/temp/host.json'
+        print 1
+        print start_command
+        cmd1 = "echo -e 'export log_stdout=1;/root/workspace/memcache/memcache' >/tmp/startmemcache.sh;screen -mdS memcache bash /tmp/startmemcache.sh"
+        cmd2 = ("echo -e 'export log_stdout=1;{0} /root/workspace/lyingdragon/lyingdragon/lyingdragon'>/tmp/startlyingdragon.sh").format(start_command)
+        cmd3 = 'screen -mdS lyingdragon bash /tmp/startlyingdragon.sh'
+        print 2
+        cmd = cmd1+";"+cmd2+";"+cmd3
+        get_start = ssh(hostfile,cmd)
+        result = get_start
         return Response({'result':result})
 
 class Excuted_CommandDetail(Excuted_CommandMixin,generics.RetrieveUpdateDestroyAPIView):
