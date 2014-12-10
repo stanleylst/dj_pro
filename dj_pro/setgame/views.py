@@ -19,13 +19,13 @@ from pythonssh import *
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    #renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
+    renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
 
-    #def list(self,request,*args,**kwargs):
-    #    response = super(UserList,self).list(request,*args,**kwargs)
-    #    if request.accepted_renderer.format == 'html':
-    #        return Response({'data': response.data}, template_name='form_user_login.html')
-    #    return response
+    def list(self,request,*args,**kwargs):
+        response = super(UserList,self).list(request,*args,**kwargs)
+        if request.accepted_renderer.format == 'html':
+            return Response({'data': response.data}, template_name='form_user_login.html')
+        return response
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()

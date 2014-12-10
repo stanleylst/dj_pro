@@ -1,0 +1,10 @@
+<div class="col-md-12 column" ng-controller="user_ctrl">
+    <form ng-submit="UserPost()">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">Please register</h2>
+        <input type="text" name="username" id="" value="" class="form-control" placeholder="Email address" required autofocus ng-model="UserData.username"/>
+        <input type="password" name="password" id="" value="" class="form-control" placeholder="Password" required ng-model="UserData.password"/>
+        <input type="password" name="password" id="" value="" class="form-control" placeholder="Password again" required ng-model="UserData.password"/>
+        <br /><button type="submit" class="btn btn-lg btn-primary btn-block">register</button>
+    </form>
+</div>

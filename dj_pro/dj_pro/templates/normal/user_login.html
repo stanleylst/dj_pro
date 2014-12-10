@@ -1,27 +1,21 @@
-<div class="col-md-12 column" ng-controller="user_ctrl">
-    <form ng-submit="UserPost()">
-        {% csrf_token %}
-        <label>New User:</label>
-        <input type="text" name="username" id="" value="" class="form-control" ng-model="UserData.username"/>
-        <br /><label>password:</label>
-        <input type="password" name="password" id="" value="" class="form-control" ng-model="UserData.password"/>
-        <br /><button type="submit" class="btn btn btn-primary">Create</button>
-    </form>
-</div>
-<div ng-controller="user_ctrl">
-<form class="form-signin" role="form" ng-submit="UserPost()">
-    {% csrf_token %}
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <input type="email" class="form-control" placeholder="Email address" required autofocus>
-    <input type="password" class="form-control" placeholder="Password" required>
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
+<div class="row" ng-controller="user_ctrl">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form class="form-signin" role="form" ng-submit="UserPost()">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <input type="email" class="form-control" placeholder="Email address" required autofocus>
+            <input type="password" class="form-control" placeholder="Password" required>
+            <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-</form>
+    <div class="col-md-4"></div>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug 
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>--!>
 </div>

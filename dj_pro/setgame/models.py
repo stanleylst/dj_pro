@@ -17,7 +17,7 @@ class Excuted_Command(models.Model):
     username = models.ForeignKey(User,related_name = 'excuted_commands')
 
     def __unicode__(self):
-        return '%s'%(self.username)
+        return '%s'%(self.username)   #use for serializer's user source
 
 class Music(models.Model):
     username = models.ForeignKey(User,related_name = 'musics')
@@ -25,4 +25,4 @@ class Music(models.Model):
     music_img = models.ImageField(upload_to='img')
 
     def __unicode__(self):
-        return '%s'%(self.username)
+        return '%s'%(self.username)     # use for serializer's user source

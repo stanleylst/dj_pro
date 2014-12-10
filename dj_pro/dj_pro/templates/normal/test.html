@@ -1,30 +1,3 @@
-<script type="text/javascript" charset="utf-8">
-    app.controller('CookieCtrl', function ($scope, $rootScope, $cookieStore) {
-        $scope.loginname = $cookieStore.get('loginname');
-        if (!$scope.loginname){
-            $scope.loginname = 'welcome to login';
-            };
-        $scope.bump = function () {
-            var lastVal = $cookieStore.get('lastValue');
-            if (!lastVal) {
-                $rootScope.lastVal = 1;
-            } else {
-            $rootScope.lastVal = lastVal + 1;
-            }
-            $cookieStore.put('lastValue', $rootScope.lastVal);
-            };
-        $scope.log_action = function(){
-            var de_loginname = $cookieStore.get('loginname');
-            if (!de_loginname){
-                $scope.log_value = 'login';
-                }else{ $scope.log_value = 'logout';};
-        };
-
-    });
-    app.controller('ShowerCtrl', function () {
-    });
-</script>
-
 <div>
     <div id="lastVal" ng-controller="ShowerCtrl">{{ lastVal }}</div>
     <div id="button-holder" ng-controller="CookieCtrl">
