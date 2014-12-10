@@ -1,13 +1,15 @@
 app.controller('PlayerController',
   function($scope,Music) {
     $scope.musics = Music.query();
+    console.log($scope.musics);
     Music.query(function(musics){             //put on where values of query is going to deal with ;
     $scope.mymusic = musics;                         
     $scope.allmusiclist = [];
     for (i in $scope.mymusic){                                  //aquire musiclist array
-        $scope.allmusiclist.push({id:i,owner: $scope.mymusic[i].user,src:'/media/'+$scope.mymusic[i].music_file, type : "audio/ogg",img:'/media/'+$scope.mymusic[i].music_img});
+        $scope.allmusiclist.push({id:i,owner: $scope.mymusic[i].user,src:$scope.mymusic[i].music_file, type : "audio/ogg",img:$scope.mymusic[i].music_img});
     };
-
+    
+    console.log($scope.allmusiclist);
     $scope.music_owner = 'root';                                  //change the musiclist of owner;
     $scope.ownerchange = function(owner){
         $scope.music_owner = owner.username;

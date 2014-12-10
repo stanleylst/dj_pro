@@ -17,23 +17,23 @@ from lyingdragon_script import *
 from pythonssh import *
 
 class UserList(generics.ListCreateAPIView):
-    model = User
+    queryset = User.objects.all()
     serializer_class = UserSerializer
-    renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
+    #renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
 
-    def list(self,request,*args,**kwargs):
-        response = super(UserList,self).list(request,*args,**kwargs)
-        if request.accepted_renderer.format == 'html':
-            return Response({'data': response.data}, template_name='login.html')
-        return response
+    #def list(self,request,*args,**kwargs):
+    #    response = super(UserList,self).list(request,*args,**kwargs)
+    #    if request.accepted_renderer.format == 'html':
+    #        return Response({'data': response.data}, template_name='form_user_login.html')
+    #    return response
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    model = User
+    queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'username'
 
 class Game_ScriptMixin(object):
-    model = Game_Script
+    queryset = Game_Script.objects.all()
     serializer_class = Game_ScriptSerializer
     renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
 
@@ -53,7 +53,7 @@ class Game_ScriptDetail(Game_ScriptMixin,generics.RetrieveUpdateDestroyAPIView):
     pass
 
 class Excuted_CommandMixin(object):
-    model = Excuted_Command
+    queryset = Excuted_Command.objects.all()
     serializer_class = Excuted_CommandSerializer
 
 class Excuted_CommandList(Excuted_CommandMixin,generics.ListCreateAPIView):
@@ -65,13 +65,13 @@ class Excuted_CommandList(Excuted_CommandMixin,generics.ListCreateAPIView):
         with open('/tmp/script_result.txt','w+') as f:
             f.write(start_command)
         hostfile = '/temp/host.json'
-        print 1
+        cmd0 = "/mnt/db.bak/xl/wangss/new_shutdown.sh;sleep 3"
         print start_command
         cmd1 = "echo -e 'export log_stdout=1;/root/workspace/memcache/memcache' >/tmp/startmemcache.sh;screen -mdS memcache bash /tmp/startmemcache.sh"
         cmd2 = ("echo -e 'export log_stdout=1;{0} /root/workspace/lyingdragon/lyingdragon/lyingdragon'>/tmp/startlyingdragon.sh").format(start_command)
         cmd3 = 'screen -mdS lyingdragon bash /tmp/startlyingdragon.sh'
-        print 2
-        cmd = cmd1+";"+cmd2+";"+cmd3
+        cmd = cmd0 + ";" + cmd1 + ";" + cmd2 + ";" + cmd3
+        #cmd = 'df -h'
         get_start = ssh(hostfile,cmd)
         result = get_start
         return Response({'result':result})
@@ -80,7 +80,7 @@ class Excuted_CommandDetail(Excuted_CommandMixin,generics.RetrieveUpdateDestroyA
     pass
 
 class MusicMixin(object):
-    model = Music
+    queryset = Music.objects.all()
     serializer_class = MusicSerializer
 
 class MusicList(MusicMixin,generics.ListCreateAPIView):

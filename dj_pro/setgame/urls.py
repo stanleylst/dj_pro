@@ -28,3 +28,4 @@ urlpatterns = patterns('',
         url(r'^excuted_commands',include(excuted_commands_urls)),
         url(r'^musics',include(music_urls)),
         )
+

@@ -17,7 +17,7 @@ class Excuted_Command(models.Model):
     username = models.ForeignKey(User,related_name = 'excuted_commands')
 
     def __unicode__(self):
-        return '%s used %s at %s'%(self.username,self.game_script,self.excute_time)
+        return '%s'%(self.username)
 
 class Music(models.Model):
     username = models.ForeignKey(User,related_name = 'musics')
@@ -25,4 +25,4 @@ class Music(models.Model):
     music_img = models.ImageField(upload_to='img')
 
     def __unicode__(self):
-        return '%s has %s with image %s'%(self.username,self.music_file,self.music_img)
+        return '%s'%(self.username)
