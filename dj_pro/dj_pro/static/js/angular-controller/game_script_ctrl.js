@@ -12,6 +12,7 @@ app.controller('game_script_ctrl', function($scope, Game_Script) {
         $.each($scope.gamename_len, function(i, el){                  //get non-duplicated array
             if($.inArray(el, $scope.gamename_uniq) === -1) $scope.gamename_uniq.push(el);
         }); 
+        console.log($scope.gamename_uniq);
         
         $scope.gamename_sum_ip = [];
         $scope.gamename_use_has_ip = [];

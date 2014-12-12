@@ -1,4 +1,4 @@
-app.controller('CookieCtrl', function ($scope,$window, $location, $rootScope, $cookieStore) {
+app.controller('CookieCtrl', function ($scope,$window, $location, $rootScope, $cookieStore,User) {
     $scope.loginname = $cookieStore.get('loginname');
     if (!$scope.loginname){
         $scope.loginname = 'welcome to login';
@@ -25,3 +25,4 @@ app.controller('CookieCtrl', function ($scope,$window, $location, $rootScope, $c
 });
 app.controller('ShowerCtrl', function () {
 });
+

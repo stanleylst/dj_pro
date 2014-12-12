@@ -7,8 +7,9 @@ from rest_framework.parsers import MultiPartParser, FormParser,FileUploadParser
 
 from .models import *
 from .serializers import *
+from django.contrib.auth import authenticate
 # Create your views here.
-import os,ast
+import os,ast,base64
 
 # My scripts
 import sys
@@ -31,6 +32,45 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'username'
+
+class LoginList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get(self,request,*args,**kwargs):
+        response = super(LoginList,self).get(request,*args,**kwargs)
+        return Response({'data': response.data})
+
+    def create(self,request,*args,**kwargs):
+        if request.DATA["gologin"] == True:
+            username = request.DATA["username"]
+            password = base64.decodestring(request.DATA["password"])
+            auth = authenticate(username=username, password=password)
+            if auth != None:
+                return Response( {"loginname":username})
+            else:
+                return Response({'result':'no way to go'})
+        else:
+            return Response({'result':'no way to go'})
+
+class LoginDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = 'username'
+
+    def create(self,request,*args,**kwargs):
+        print kwargs["username"]
+        print serializer.data["password"]
+        username = kwargs["username"]
+        #password = base64.decodestring(kwargs["password"])
+        #print kwargs["username"],kwargs["password"]
+        auth = authenticate(username=username, password=password)
+        if auth != None:
+            return Response( {'result':username})
+        else:
+            return Response({'result':'no way to go'})
+
+
 
 class Game_ScriptMixin(object):
     queryset = Game_Script.objects.all()

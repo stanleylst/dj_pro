@@ -13,4 +13,6 @@ app.factory('User', ['$resource', function($resource) {
                         method: 'DELTET'
                     },
                 });
-}]);            
+}]);        
+
+

@@ -22,10 +22,16 @@ music_urls = patterns('',
         url(r'^/(?P<pk>[0-9]+)/$',MusicList.as_view(),name='musics-detail'),
         )
 
+login_urls = patterns('',
+        url(r'^$',LoginList.as_view(),name='login-list'),
+        url(r'^/(?P<username>[0-9a-zA-Z-]+)$',LoginDetail.as_view(),name='login-detail'),
+        )
+
 urlpatterns = patterns('',
         url(r'^users',include(user_urls)),
         url(r'^game_scripts',include(game_script_urls)),
         url(r'^excuted_commands',include(excuted_commands_urls)),
         url(r'^musics',include(music_urls)),
+        url(r'^login',include(login_urls)),
         )
 
