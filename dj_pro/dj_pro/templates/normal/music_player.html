@@ -1,3 +1,27 @@
+<style type="text/css">
+    .slider-bar{
+        display:block; width:10px; background-color:none; position:relative;
+        cursor:pointer
+    }
+
+    .slider ,.slider-bar{
+        height:15px;
+        cursor:pointer
+    }
+.progress.vertical {
+    position: relative;
+    width: 20px;
+    min-height: 240px;
+    float: left;
+    margin-right: 20px;
+    background: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: none;
+}
+  </style>
+
 <div class="col-md-12 column">
     <h3>BGM:</h3>
 </div>    
@@ -14,21 +38,29 @@
     </div>
 
     <span>image:</span> <img ng-src="((playlist[audio.currentTrack-1].img))" class="img-thumbnail" width="100" height="100">
-    <span>song:((playlist[audio.currentTrack-1].src.split("/")[3]))</span>
+    <span>song:((playlist[audio.currentTrack-1].songname.split("/")[5]))</span>
     <br />current time:((audio.currentTime|MinSecFilter))
     <br/>
     <div class="row col-sm-3 column">
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="height:18px;width:((audio.currentTime/audio.duration*100))%;">
+        <div class="slider progress">
+            <div class="slider-bar progress-bar" role="progressbar" style="height:18px;width:((audio.currentTime/audio.duration*100))%;">
                 <span>((audio.currentTime/audio.duration*100|number:0))% </span>
             </div>
-            <div class="progress-bar progress-bar-info" style="height:18px;width: ((audio.loadPercent-audio.currentTime/audio.duration*100))%;">
+            <div class="slider-bar progress-bar progress-bar-info" style="height:18px;width: ((audio.loadPercent-audio.currentTime/audio.duration*100))%;">
                 <span>load:((audio.loadPercent))%</span>
+            </div>
+        </div>
+    </div>
+    <div class="row col-sm-3 column">
+        <div class="progress vertical">
+            <div class="progress-bar" style="height: 70%;width:50%;">
+        <span>((audio.currentTime/audio.duration*100|number:0))% </span>
             </div>
         </div>
     </div>
     <br/>
     <br/>
+    
  
     <div>
         <span ng-show="audio.playing">Player status: Playing</span>

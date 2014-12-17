@@ -16,11 +16,16 @@ app.controller('CookieCtrl', function ($scope,$window, $location, $rootScope, $c
         $cookieStore.put('lastValue', $rootScope.lastVal);
         };
 
-    $scope.log_action = function(){
+    $scope.logform_action = function(){
         var de_loginname = $cookieStore.get('loginname');
         if (!de_loginname){
             $scope.log_value = 'login';
             }else{ $scope.log_value = 'logout';};
+    };
+    
+    $scope.log_action = function(){
+        if ($scope.log_value == 'login'){$window.location.href = "/setgame/users";};
+        if ($scope.log_value == 'logout'){$cookieStore.put('loginname', '');$window.location.href = "/setgame/users";};
     };
 });
 app.controller('ShowerCtrl', function () {

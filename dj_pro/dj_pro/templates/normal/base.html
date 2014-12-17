@@ -13,7 +13,10 @@
         <!--script src="js/less-1.3.3.min.js"></script-->      
         <!--append watch to the browser URL, then refresh the page. -->
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <!--<link href="{% static 'css/libs/slider.css' %}" rel="stylesheet">-->
         <link href="{% static 'css/style.css' %}" rel="stylesheet">  
+        <!--<link href="{% static 'css/libs/jquery-ui-1.10.0.custom.css' %}" rel="stylesheet">  
+        <link href="{% static 'css/libs/jquery.ui.1.10.0.ie.css' %}" rel="stylesheet">  -->
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->  
         <!--[if lt IE 9]>    
         <script src="js/html5shiv.js"></script>  
@@ -23,36 +26,6 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">  
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">  
         <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">  
-
-        <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="{% static 'js/libs/angular/angular.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/libs/angular/angular-resource.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/libs/angular/angular-cookies.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/libs/angular/angular-md5.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/libs/angular/media-player.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/libs/angular/media-player.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/libs/bootstrap/ui-bootstrap-tpls-0.11.2.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/libs/angular/angular-base64.js' %}"></script>
-
-        <script type="text/javascript" src="{% static 'js/angular-controller/main.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-factory/MinSecFilter.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-factory/timer.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-factory/User.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-factory/Music.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-factory/Game_Script.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-factory/Excuted_Command.js' %}"></script>
-
-        <script type="text/javascript" src="{% static 'js/angular-controller/google_ctrl.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-controller/log_cookie.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-controller/checkuser_cookie.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-controller/game_script_ctrl.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-controller/excuted_command_ctrl.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-controller/user_ctrl.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-controller/music_ctrl.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-controller/TimeController.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-controller/PlayerController.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/angular-controller/game_login.js' %}"></script>
     </head>    
     <body ng-app="myApp">
         <div class="container-fluid">
@@ -62,5 +35,37 @@
             </div>
             {% block content %}{% endblock %}
         </div>
+    
+    <!-- put here load faster --!>
+    <script type="text/javascript" src="{% static 'js/libs/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/angular/angular.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/angular/angular-resource.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/angular/angular-cookies.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/angular/angular-md5.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/angular/media-player.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/bootstrap/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/bootstrap/bootstrap-slider-jquery-comb.js' %}"></script>
+    <!--<script type="text/javascript" src="{% static 'js/libs/jquery-ui-1.10.0.custom.min.js' %}"></script>-->
+    <script type="text/javascript" src="{% static 'js/libs/bootstrap/ui-bootstrap-tpls-0.11.2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/angular/angular-base64.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/angular-controller/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-factory/MinSecFilter.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-factory/timer.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-factory/User.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-factory/Music.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-factory/Game_Script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-factory/Excuted_Command.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/angular-controller/google_ctrl.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/log_cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/checkuser_cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/game_script_ctrl.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/excuted_command_ctrl.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/user_ctrl.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/music_ctrl.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/TimeController.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/PlayerController.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/game_login.js' %}"></script>
     </body>
 </html>

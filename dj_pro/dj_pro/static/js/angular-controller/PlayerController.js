@@ -1,15 +1,14 @@
 app.controller('PlayerController',
   function($scope,Music) {
+
     $scope.musics = Music.query();
     Music.query(function(musics){             //put on where values of query is going to deal with ;
     $scope.mymusic = musics;                         
     $scope.allmusiclist = [];
     for (i in $scope.mymusic){                                  //aquire musiclist array
-        music_url = $scope.mymusic[i].music_file.split('/')
-        img_url = $scope.mymusic[i].music_img.split('/')
-        $scope.music_src = '/'+music_url[3]+'/'+music_url[4]+'/'+music_url[5]
-        $scope.img_src = '/'+img_url[3]+'/'+img_url[4]+'/'+img_url[5]
-        $scope.allmusiclist.push({id:i,owner: $scope.mymusic[i].user,src:decodeURI($scope.music_src), type : "audio/ogg",img:decodeURI($scope.img_src)});
+        music_src = $scope.mymusic[i].music_file
+        img_src = $scope.mymusic[i].music_img
+        $scope.allmusiclist.push({id:i,owner: $scope.mymusic[i].user,src:music_src, songname:decodeURI(music_src),type : "audio/ogg",img:decodeURI(img_src)});
     };
     
     console.log($scope.allmusiclist);
@@ -58,7 +57,7 @@ app.controller('PlayerController',
         if($scope.repeat == true){
             $scope.audio.next();
             $scope.canturn = false;
-            setTimeout(canturn,100);
+            setTimeout(canturn,5);
             }else{$scope.audio.next();};
     };      
     
@@ -67,7 +66,7 @@ app.controller('PlayerController',
         if($scope.repeat == true){
             $scope.audio.prev();
             $scope.canturn = false;
-            setTimeout(canturn,100);
+            setTimeout(canturn,5);
             }else{$scope.audio.prev();};
     };      
     
@@ -92,7 +91,7 @@ app.controller('PlayerController',
             console.log('last song');
             $scope.audio.play();
             $scope.canturn = false;
-            setTimeout(canturn,100);
+            setTimeout(canturn,5);
         };
         console.log('end watch');
         console.log($scope.audio.ended+'    '+$scope.audio.currentTrack);
@@ -117,5 +116,42 @@ app.controller('PlayerController',
 });
 
     $scope.isCollapsed = true;
+
+
+
+$(function () {
+  
+  //for jsfiddle so its mobile friendly.
+  $('head').append('<meta name="viewport" content="width=device-width, initial-scale=1" />');
+  
+  var $alert = $($(".alert")[0]);
+  var $p = $($(".progress")[0]);
+  var $b = $($("[type='submit']")[0]);
+  var $t = $("#progress-value");
+  
+  //监听sliderchange事件
+  $p.on("sliderchange", function (e, result) {
+      //显示当前值
+        $scope.audio.pause();
+      timepercent = result.value;
+      seektime = timepercent*$scope.audio.duration/100;
+      console.log(seektime);
+      $scope.audio.seek(seektime);
+      setTimeout(function(){$scope.audio.play()},2000 )
+      
+     
+  });
+  //监听slidercomplete事件
+  $p.on("slidercomplete", function (e, result) {
+      console.log('slider completed!');
+  }); 
+      //通过$p.slider("option", "now", value);方法设置当前值
+    $b.on('click', function (e) {
+        var value = parseFloat($t.val());
+        $p.slider("option", "now", value);
+        return false;
+    });
+
+ });
 
 });

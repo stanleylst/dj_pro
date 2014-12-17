@@ -22,18 +22,21 @@ function($resource) {
     );
 }]);
 
-app.controller('LoginCtrl', function LoginCtrl($scope, $base64,$location, AuthService, $cookieStore) {
+app.controller('LoginCtrl', function LoginCtrl($scope, $base64,$location,$window, AuthService, $cookieStore) {
     $scope.credentials = { username: "", password: "",gologin : true};
     $scope.login = function(credentials) {
         $scope.credentials.password = $base64.encode($scope.credentials.password);
         AuthService.login(credentials,
         function(result){
             $scope.loginname = result["loginname"];
+            $scope.message = 'now login';
             console.log($scope.loginname);
             $cookieStore.put('loginname', $scope.loginname);
+            $window.location.href = "/setgame/game_scripts";
             },  
         function(err){
-            $scope.loginname = "something wrong here,run it again!"
+            $scope.message = "something wrong here,run it again!"
+            alert($scope.message);
             console.log("something wrong here!");
     });     
 }   
