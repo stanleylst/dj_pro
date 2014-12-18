@@ -73,3 +73,12 @@ a.remove-tipper {
 .tag-add:hover {
     background-color: #1abc9c !important;
 }
+.slider-bar{
+    display:block; width:10px; background-color:none; position:relative;
+    cursor:pointer
+}
+
+.slider ,.slider-bar{
+    height:15px;
+    cursor:pointer
+}

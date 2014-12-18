@@ -4,23 +4,19 @@
         <button ng-click="bump()">Bump!</button>
     </div>
 </div>
-<!--
-<div id="v-slider" style="height:100px;" class="ui-slider ui-slider-vertical ui-widget ui-widget-content ui-corner-all" aria-disabled="false"><div class="ui-slider-range ui-widget-header ui-slider-range-min" style="height: 20%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="bottom: 20%;"></a></div>
 
-<script type="text/javascript" charset="utf-8">
-    // Vertical slider
-$(function () {
-$("#v-slider").slider({
-    orientation: "vertical",
-    range: "min",
-    min: 0,
-    max: 100,
-    value: 60,
-    slide: function (event, ui) {
-        $("#amount").val(ui.value);
-    }
-});
-}
-$("#amount").val($("#v-slider").slider("value"));
-</script>
--->
+    <section class="content">
+
+        <div class="example">
+
+          <div class="slider-wrapper vertical-wrapper">
+            <input type="text" class="js-vertical" />
+          </div>
+        </div>
+    </section>
+<script type="text/javascript" src="../static/js/libs/slider/powerange.min.js"></script>
+  <script type="text/javascript">
+
+    var vert = document.querySelector('.js-vertical');
+    var initVert = new Powerange(vert, { start: 80, vertical: true });
+  </script>

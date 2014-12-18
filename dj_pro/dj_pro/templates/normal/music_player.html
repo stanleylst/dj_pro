@@ -1,27 +1,3 @@
-<style type="text/css">
-    .slider-bar{
-        display:block; width:10px; background-color:none; position:relative;
-        cursor:pointer
-    }
-
-    .slider ,.slider-bar{
-        height:15px;
-        cursor:pointer
-    }
-.progress.vertical {
-    position: relative;
-    width: 20px;
-    min-height: 240px;
-    float: left;
-    margin-right: 20px;
-    background: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    border: none;
-}
-  </style>
-
 <div class="col-md-12 column">
     <h3>BGM:</h3>
 </div>    
@@ -48,13 +24,6 @@
             </div>
             <div class="slider-bar progress-bar progress-bar-info" style="height:18px;width: ((audio.loadPercent-audio.currentTime/audio.duration*100))%;">
                 <span>load:((audio.loadPercent))%</span>
-            </div>
-        </div>
-    </div>
-    <div class="row col-sm-3 column">
-        <div class="progress vertical">
-            <div class="progress-bar" style="height: 70%;width:50%;">
-        <span>((audio.currentTime/audio.duration*100|number:0))% </span>
             </div>
         </div>
     </div>
@@ -95,7 +64,7 @@
             <div class="col-md-5 column">
                 <div class="col-md-12 column" ng-repeat="music in playlist">
                     <span>image: </span> <img ng-src="((music.img))" class="img-thumbnail" width="70" height="70">
-                    <button ng-click="audio.play(music.id-1+1)" class="btn btn btn-default"><span>song:((music.src.split("/")[3]))</span></button>
+                    <button ng-click="audio.play(music.id-1+1)" class="btn btn btn-default"><span>song:((music.src.split("/")[5]))</span></button>
                 </div>
             </div>
         </div>
@@ -105,3 +74,86 @@
     <br/>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-md-4 column">
+    
+    <div class="col-md-10 column">
+        <div ng-controller="user_ctrl" class="col-md-12 column">
+            <div class="col-md-8 column">
+                <span>change music list via user:</span>
+                <select class="form-control" ng-model="owner" ng-change="ownerchange(owner)" ng-options="i.username for i in users"> 
+                    <option value="">change music list</option>
+                </select>
+            </div>
+        </div>
+
+        <span>image:</span> <img ng-src="((playlist[audio.currentTrack-1].img))" class="img-thumbnail" width="100" height="100">
+        <span>song:((playlist[audio.currentTrack-1].songname.split("/")[5]))</span>
+        <br />current time:((audio.currentTime|MinSecFilter))
+        <br/>
+        <div class="row col-sm-12 column">
+            <div class="slider progress">
+                <div class="slider-bar progress-bar" role="progressbar" style="height:18px;width:((audio.currentTime/audio.duration*100))%;">
+                    <span>((audio.currentTime/audio.duration*100|number:0))% </span>
+                </div>
+                <div class="slider-bar progress-bar progress-bar-info" style="height:18px;width: ((audio.loadPercent-audio.currentTime/audio.duration*100))%;">
+                    <span>load:((audio.loadPercent))%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="col-md-2 column">
+        
+    <section class="content">
+    
+        <div class="example" class="col-md-2 column">
+        
+          <div class="slider-wrapper vertical-wrapper">
+            <input type="text" class="js-vertical" />
+          </div>
+        </div>
+    </section>
+    <script type="text/javascript" src="../static/js/libs/slider/powerange.min.js"></script>
+    <script type="text/javascript">
+  
+        var vert = document.querySelector('.js-vertical');
+        var initVert = new Powerange(vert, { start: 80, vertical: true });
+    </script>
+</div>
+</div>
+    <br/>
+    <br/>
+    
+ 
+    <div>
+        <span ng-show="audio.playing">Player status: Playing</span>
+        <span ng-show="!audio.playing">Player status: Paused</span>
+        <br />
+        <button ng-click="myprev()" class="btn btn btn-info">Prev</button>
+        <button ng-click="audio.play()" class="btn btn btn-default" ng-show="!audio.playing">Play</button>
+        <button ng-click="audio.pause()" class="btn btn btn-info" ng-show="audio.playing">Stop</button>
+        <button ng-click="mynext()" class="btn btn btn-info">Next</button>
+        <button ng-click="repeat_func()" class="btn btn btn-default" ng-show="!repeat">Repeat Once</button>
+        <button ng-click="repeat_func()" class="btn btn btn-info" ng-show="repeat">Cancel Repeat </button>
+        <button ng-click="goloop()" class="btn btn btn-default" ng-show="!loop">go loop </button>
+        <button ng-click="goloop()" class="btn btn btn-info" ng-show="loop">Cancel loop </button>
+        <br />
+    </div>
+</div>
