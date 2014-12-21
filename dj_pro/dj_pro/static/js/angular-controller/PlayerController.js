@@ -154,4 +154,13 @@ $(function () {
 
  });
 
+//vol vertical
+    var changeInput = document.querySelector('.js-check-change');
+    var changeint = new Powerange(changeInput, { start: 100, decimal: false, min: 0, max: 100, vertical: false });
+    changeInput.onchange = function() {
+     $scope.audio.setVolume(changeInput.value/100);
+    document.getElementById('js-display-change').innerHTML = changeInput.value;
+    };
+ 
+
 });
