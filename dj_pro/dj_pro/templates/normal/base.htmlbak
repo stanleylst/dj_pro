@@ -13,6 +13,9 @@
         <link href="{% static 'css/libs/powerange.css' %}" rel="stylesheet">
         <link href="{% static 'css/style.css' %}" rel="stylesheet">  
         <link rel="stylesheet" href="{% static 'css/powermain.css' %}" />
+        <link href="http://fonts.googleapis.com/css?family=Maven+Pro:400" rel="stylesheet" type="text/css" />   
+        <link href="http://fonts.googleapis.com/css?family=News+Cycle" rel="stylesheet" type="text/css" />
+        <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css" />
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->  
         <!--[if lt IE 9]>    
         <script src="js/html5shiv.js"></script>  
@@ -33,28 +36,34 @@
         </div>
     
     <!-- put here load faster --!>
-    <!-- here is the main js file that should be load --!>
     <script type="text/javascript" src="{% static 'js/libs/jquery/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/angular/angular.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/angular/angular-resource.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/angular/angular-cookies.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/angular/angular-md5.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libs/bootstrap/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/libs/angular/angular-base64.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/angular/media-player.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/bootstrap/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/bootstrap/bootstrap-slider-jquery-comb.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/bootstrap/ui-bootstrap-tpls-0.11.2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/angular/angular-base64.js' %}"></script>
 
-    <script type="text/javascript" src="{% static 'js/angular-factory/main.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/angular-factory/User.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/main.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/angular-factory/MinSecFilter.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/angular-factory/timer.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-factory/User.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-factory/Music.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-factory/Game_Script.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-factory/Excuted_Command.js' %}"></script>
 
-    <script type="text/javascript" src="{% static 'js/angular-controller/TimeController.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/angular-controller/google_ctrl.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/angular-controller/log_cookie.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/angular-controller/checkuser_cookie.js' %}"></script>
-
-    <!-- here is the other page's js --!>
-    {% block chosen_js_file %}{% endblock %}
+    <script type="text/javascript" src="{% static 'js/angular-controller/game_script_ctrl.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/excuted_command_ctrl.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/user_ctrl.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/music_ctrl.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/TimeController.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/PlayerController.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/angular-controller/game_login.js' %}"></script>
     </body>
 </html>

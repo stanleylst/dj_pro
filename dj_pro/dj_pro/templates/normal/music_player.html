@@ -64,7 +64,7 @@
             <div class="col-md-5 column">
                 <div class="col-md-12 column" ng-repeat="music in playlist">
                     <span>image: </span> <img ng-src="((music.img))" class="img-thumbnail" width="70" height="70">
-                    <button ng-click="audio.play(music.id-1+1)" class="btn btn btn-default"><span>song:((music.songname.split("/")[5]))</span></button>
+                    <button ng-click="audio.play(music.id-1+1)" class="btn btn btn-info"><span>song:((music.songname.split("/")[5]))</span></button>
                 </div>
             </div>
         </div>
@@ -102,7 +102,15 @@
     <br/>
 </div>
 
-
+<!-- need js file:
+js/libs/angular/media-player.js
+js/libs/bootstrap/bootstrap-slider-jquery-comb.js
+js/angular-factory/User.js 
+js/angular-factory/Music.js 
+js/angular-controller/user_ctrl.js  
+js/angular-controller/PlayerController.js 
+js/angular-controller/music_ctrl.js  
+--!>
 
 
 

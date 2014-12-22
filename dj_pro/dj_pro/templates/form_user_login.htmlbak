@@ -3,5 +3,4 @@
 {% include "normal/navigation.html" %}
 {% include "normal/user_login.html" %}
 {% include "normal/time.html" %}
-{% include "normal/test.html" %}
 {% endblock %}

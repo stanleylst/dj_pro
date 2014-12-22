@@ -104,3 +104,7 @@ a.remove-tipper {
     cursor: inherit;
     display: block;
 }
+
+.addsong {
+  background: url('../images/icon_star.png') 0 0 repeat;
+}
