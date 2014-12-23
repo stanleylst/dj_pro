@@ -33,6 +33,22 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     lookup_field = 'username'
 
+class RegisterList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
+
+    def list(self,request,*args,**kwargs):
+        response = super(RegisterList,self).list(request,*args,**kwargs)
+        if request.accepted_renderer.format == 'html':
+            return Response({'data': response.data}, template_name='form_user_register.html')
+        return response
+
+class RegisterDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = 'username'
+
 class LoginList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

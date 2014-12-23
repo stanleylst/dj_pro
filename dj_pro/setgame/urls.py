@@ -27,11 +27,17 @@ login_urls = patterns('',
         url(r'^/(?P<username>[0-9a-zA-Z-]+)$',LoginDetail.as_view(),name='login-detail'),
         )
 
+login_urls = patterns('',
+        url(r'^$',RegisterList.as_view(),name='register-list'),
+        url(r'^/(?P<username>[0-9a-zA-Z-]+)$',RegisterDetail.as_view(),name='register-detail'),
+        )
+
 urlpatterns = patterns('',
         url(r'^users',include(user_urls)),
         url(r'^game_scripts',include(game_script_urls)),
         url(r'^excuted_commands',include(excuted_commands_urls)),
         url(r'^musics',include(music_urls)),
         url(r'^login',include(login_urls)),
+        url(r'^register',include(login_urls)),
         )
 

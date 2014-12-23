@@ -29,7 +29,21 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username','password','excuted_commands','musics')
 
-    def restore_object(self,attrs,instance=None):
-        user = super(UserSerializer, self).restore_object(attrs,instance)
-        user.set_password(attrs['password'])
-        return user
+    #add user
+    def create(self,validated_data):
+        password = validated_data.pop('password', None)
+        instance = self.Meta.model(**validated_data)
+        if password is not None:
+            instance.set_password(password)
+        instance.save()
+        return instance
+
+    #modify user
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            if attr == 'password':
+                instance.set_password(value)
+            else:
+                setattr(instance, attr, value)
+        instance.save()
+        return instance
