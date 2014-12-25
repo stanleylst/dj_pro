@@ -1,20 +1,54 @@
-app.controller('music_ctrl', function($http,$scope, Music) { 
-  // Get all posts                                   
-    $scope.musics = Music.query();                     
-
-    $scope.uploadFile = function(files) {
-    var fd = new FormData();
-    //Take the first selected file                   
-    fd.append("file", files[0]);
-    fd.append("file", files[1]);
-    fd.append("name", "username");
-
-
-    $http.post('/setgame/musics/:id', fd, {
-        withCredentials: true,
-        headers: {'Content-Type': undefined },
-        transformRequest: angular.identity
-    }).success("... all right! ..." ).error( "...damn!..." );
-
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
     };
-});
+}]);
+
+app.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(up_combine, uploadUrl){
+        $scope.loadinfo = '';
+        var fd = new FormData();
+        for( key in up_combine){
+            fd.append(key, up_combine[key]);
+        }
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+            $scope.loadinfo = 'upload successful';
+        })
+        .error(function(){
+            $scope.loadinfo = 'upload failed';
+        });
+    }
+}]);
+
+app.controller('music_ctrl', ['$scope', 'fileUpload', 'User',function($scope, ipCookie,fileUpload,User){
+    $scope.userid = User.query(); 
+    console.log($scope.userid);
+    /*
+    $scope.uploadFile = function(){
+        username = ipCookie('loginname');
+        if (username == undefined || username == ''){
+            $scope.loadinfo = 'please login first';
+            return false };
+        var up_combine = {'music_file':$scope.music_file,
+                          'music_img':$scope.music_img,
+                           'username':username};
+        
+        var uploadUrl = "/setgame/musics";
+        fileUpload.uploadFileToUrl(up_combine, uploadUrl);
+    };*/    
+}]);
+

@@ -1,10 +1,10 @@
-app.controller('CookieCtrl', function ($scope,$window, $location, $rootScope, $cookieStore,User) {
-    $scope.loginname = $cookieStore.get('loginname');
+app.controller('CookieCtrl', function ($scope,$window, $location, $rootScope, ipCookie,User) {
+    $scope.loginname = ipCookie('loginname');
     if (!$scope.loginname){
         $scope.loginname = 'welcome to login';
         };
     $scope.bump = function () {
-        var lastVal = $cookieStore.get('lastValue');
+        var lastVal = ipCookie('lastValue');
         if (!lastVal) {
             $rootScope.lastVal = 1;
         } else {
@@ -13,11 +13,11 @@ app.controller('CookieCtrl', function ($scope,$window, $location, $rootScope, $c
         $window.location.href = "/setgame/game_scripts";
         console.log($location.absurl());
         };
-        $cookieStore.put('lastValue', $rootScope.lastVal);
+        ipCookie('lastValue', $rootScope.lastVal);
         };
 
     $scope.logform_action = function(){
-        var de_loginname = $cookieStore.get('loginname');
+        var de_loginname = ipCookie('loginname');
         if (!de_loginname){
             $scope.log_value = 'login';
             }else{ $scope.log_value = 'logout';};
@@ -25,7 +25,7 @@ app.controller('CookieCtrl', function ($scope,$window, $location, $rootScope, $c
     
     $scope.log_action = function(){
         if ($scope.log_value == 'login'){$window.location.href = "/setgame/users";};
-        if ($scope.log_value == 'logout'){$cookieStore.put('loginname', '');$window.location.href = "/setgame/users";};
+        if ($scope.log_value == 'logout'){ipCookie('loginname', '');$window.location.href = "/setgame/users";};
     };
 });
 app.controller('ShowerCtrl', function () {
