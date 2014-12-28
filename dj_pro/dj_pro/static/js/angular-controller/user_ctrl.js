@@ -1,4 +1,4 @@
-app.controller('user_ctrl', function($scope,$window, User) {
+app.controller('user_ctrl', function($scope,ipCookie,$window, User) {
   // Get all posts
     $scope.users = User.query();
 
@@ -21,7 +21,15 @@ app.controller('user_ctrl', function($scope,$window, User) {
         console.log($scope.UserData);
         delete $scope.UserData.passwordcheck;
         console.log($scope.UserData);
-        post.$save($scope.UserData);
+        post.$save($scope.UserData,
+        function(result){
+        $window.location.href = "/setgame/game_scripts";
+        ipCookie('loginname',$scope.UserData.username);
+            },
+        function(err){
+        $window.location.href = "/setgame/users";
+            console.log('here');
+            });
         //$window.location.href = "/setgame/game_scripts";
         };
         });

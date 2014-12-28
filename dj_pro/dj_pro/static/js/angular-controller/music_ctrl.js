@@ -14,9 +14,9 @@ app.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-app.service('fileUpload', ['$http', function ($http) {
+app.service('fileUpload', ['$http','$rootScope', function ($http,$rootScope) {
+    $rootScope,loadinfo = '';
     this.uploadFileToUrl = function(up_combine, uploadUrl){
-        $scope.loadinfo = '';
         var fd = new FormData();
         for( key in up_combine){
             fd.append(key, up_combine[key]);
@@ -26,29 +26,38 @@ app.service('fileUpload', ['$http', function ($http) {
             headers: {'Content-Type': undefined}
         })
         .success(function(){
-            $scope.loadinfo = 'upload successful';
+            $rootScope.loadinfo = 'upload successful!';
         })
         .error(function(){
-            $scope.loadinfo = 'upload failed';
+            $rootScope.loadinfo = 'upload failed!';
         });
-    }
+    };
 }]);
 
-app.controller('music_ctrl', ['$scope', 'fileUpload', 'User',function($scope, ipCookie,fileUpload,User){
-    $scope.userid = User.query(); 
-    console.log($scope.userid);
-    /*
+app.controller('music_ctrl', ['$scope', 'ipCookie','fileUpload', 'User',function($scope, ipCookie,fileUpload,User){
+    userid = '';
+     User.query(function(users){
+        usercookie = ipCookie('loginname');
+        console.log(users);
+         for( i in users){
+            if( users[i].username == usercookie){
+            userid = users[i].id;
+            console.log(userid);
+         };
+     };
+    });
     $scope.uploadFile = function(){
-        username = ipCookie('loginname');
-        if (username == undefined || username == ''){
+        $scope.loadinfo = '';
+        if ( userid == '' || userid == undefined){
             $scope.loadinfo = 'please login first';
             return false };
         var up_combine = {'music_file':$scope.music_file,
                           'music_img':$scope.music_img,
-                           'username':username};
+                           'username':userid};
         
+        console.log(up_combine);
         var uploadUrl = "/setgame/musics";
         fileUpload.uploadFileToUrl(up_combine, uploadUrl);
-    };*/    
+    };
 }]);
 

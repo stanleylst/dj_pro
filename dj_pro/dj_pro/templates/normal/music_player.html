@@ -78,22 +78,16 @@
         <accordion-heading>Add a song <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </accordion-heading>
             <div class="col-md-12 column" ng-controller="music_ctrl">
-                <form action="/setgame/musics" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <span class="btn btn-primary btn-file">
                         <label>choose a music</label>
-                        <input type="file" name="music_file" id="" value="file" />
-                    </span>
+                        <input type="file" file-model="music_file"/>
                     <div class="col-md-12 column"><br /></div>
-                    <span class="btn btn-primary btn-file">
                         <label>choose a image</label>
-                        <input type="file" name="music_img" id="" value="image" />
-                    </span>
-                    <div class="col-md-12 column"><br /></div>
-                    <input type="text" name="username" id="" />
+                        <input type="file" file-model="music_img"/>
                     <br />
-                    <button type="submit" class="btn btn btn-primary">upload</button>
-                </form>
+                    <br />
+                    <button type="submit" ng-click="uploadFile()" class="btn btn btn-primary">upload</button>
+                    <p ng-show='loadinfo' class="bg-danger">((loadinfo))</p>
+                    <p ng-show='$root.loadinfo' class="bg-danger">(($root.loadinfo))</p>
             </div>
             </accordion-group>
             </accordion>

@@ -35,8 +35,10 @@ app.controller('LoginCtrl', function LoginCtrl($scope, $base64,$location,$window
             $window.location.href = "/setgame/game_scripts";
             },  
         function(err){
-            $scope.message = "something wrong here,run it again!"
+            $scope.message = "password error or loginname not exists!"
             alert($scope.message);
+            ipCookie('loginname', '');
+            $window.location.href = "/setgame/users";
             console.log("something wrong here!");
     });     
 }   

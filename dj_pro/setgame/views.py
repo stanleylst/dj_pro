@@ -65,9 +65,9 @@ class LoginList(generics.ListCreateAPIView):
             if auth != None:
                 return Response( {"loginname":username})
             else:
-                return Response({'result':'no way to go'})
+                return Response({'result':'no way to go'},status=status.HTTP_404_NOT_FOUND)
         else:
-            return Response({'result':'no way to go'})
+            return Response({'result':'no way to go'},status=status.HTTP_404_NOT_FOUND)
 
 class LoginDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
@@ -84,7 +84,7 @@ class LoginDetail(generics.RetrieveUpdateDestroyAPIView):
         if auth != None:
             return Response( {'result':username})
         else:
-            return Response({'result':'no way to go'})
+            return Response({'result':'no way to go'},status=status.HTTP_404_NOT_FOUND)
 
 
 

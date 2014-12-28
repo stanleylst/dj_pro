@@ -11,7 +11,6 @@ app.controller('PlayerController',
         $scope.allmusiclist.push({id:i,owner: $scope.mymusic[i].user,src:music_src, songname:decodeURI(music_src),type : "audio/ogg",img:decodeURI(img_src)});
     };
     
-    console.log($scope.allmusiclist);
     $scope.music_owner = 'root';                                  //change the musiclist of owner;
     $scope.ownerchange = function(owner){
         $scope.music_owner = owner.username;
