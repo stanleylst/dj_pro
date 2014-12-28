@@ -32,6 +32,10 @@ register_urls = patterns('',
         url(r'^/(?P<username>[0-9a-zA-Z-]+)$',RegisterDetail.as_view(),name='register-detail'),
         )
 
+test_urls = patterns('',
+        url(r'^$',Test.as_view(),name='test-list'),
+        )
+
 urlpatterns = patterns('',
         url(r'^users',include(user_urls)),
         url(r'^game_scripts',include(game_script_urls)),
@@ -39,5 +43,6 @@ urlpatterns = patterns('',
         url(r'^musics',include(music_urls)),
         url(r'^login',include(login_urls)),
         url(r'^register',include(register_urls)),
+        url(r'^test',include(test_urls)),
         )
 

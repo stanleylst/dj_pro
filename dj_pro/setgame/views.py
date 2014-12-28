@@ -144,3 +144,6 @@ class MusicList(MusicMixin,generics.ListCreateAPIView):
 
 class MusicDetail(MusicMixin,generics.RetrieveUpdateDestroyAPIView):
     pass
+
+class Test(MusicMixin,generics.ListCreateAPIView):
+    pass

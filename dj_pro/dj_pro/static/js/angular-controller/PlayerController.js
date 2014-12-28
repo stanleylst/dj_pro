@@ -89,6 +89,7 @@ app.controller('PlayerController',
         if($scope.audio.ended == true && $scope.repeat == true && $scope.canturn == true){
             console.log('last song');
             $scope.audio.play();
+            $scope.audio.seek(0);
             $scope.canturn = false;
             setTimeout(canturn,5);
         };
@@ -106,7 +107,8 @@ app.controller('PlayerController',
             console.log('return to first');
             try{
                 setTimeout(function () {
-                $scope.audio.play(0);},500);}catch(e){
+                $scope.audio.play(0);
+                $scope.audio.seek(0);},500);}catch(e){
                     console.log('loop here');
                     $scope.audio.play(0);}
         };
