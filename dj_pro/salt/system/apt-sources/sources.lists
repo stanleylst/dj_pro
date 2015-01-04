@@ -1,0 +1,6 @@
+deb http://mirrors.163.com/debian squeeze main non-free contrib
+deb http://mirrors.163.com/debian squeeze-proposed-updates main contrib non-free
+deb http://mirrors.163.com/debian-security squeeze/updates main contrib non-free
+deb-src http://mirrors.163.com/debian squeeze main non-free contrib
+deb-src http://mirrors.163.com/debian squeeze-proposed-updates main contrib non-free
+deb-src http://mirrors.163.com/debian-security squeeze/updates main contrib non-free

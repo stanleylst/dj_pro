@@ -56,7 +56,7 @@ app.controller('PlayerController',
         if($scope.repeat == true){
             $scope.audio.next();
             $scope.canturn = false;
-            setTimeout(canturn,5);
+            setTimeout(canturn,50);
             }else{$scope.audio.next();};
     };      
     
@@ -65,7 +65,7 @@ app.controller('PlayerController',
         if($scope.repeat == true){
             $scope.audio.prev();
             $scope.canturn = false;
-            setTimeout(canturn,5);
+            setTimeout(canturn,50);
             }else{$scope.audio.prev();};
     };      
     
@@ -89,9 +89,8 @@ app.controller('PlayerController',
         if($scope.audio.ended == true && $scope.repeat == true && $scope.canturn == true){
             console.log('last song');
             $scope.audio.play();
-            $scope.audio.seek(0);
             $scope.canturn = false;
-            setTimeout(canturn,5);
+            setTimeout(canturn,50);
         };
         console.log('end watch');
         console.log($scope.audio.ended+'    '+$scope.audio.currentTrack);
@@ -108,7 +107,7 @@ app.controller('PlayerController',
             try{
                 setTimeout(function () {
                 $scope.audio.play(0);
-                $scope.audio.seek(0);},500);}catch(e){
+                },500);}catch(e){
                     console.log('loop here');
                     $scope.audio.play(0);}
         };

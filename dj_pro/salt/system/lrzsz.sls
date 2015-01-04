@@ -1,0 +1,4 @@
+lrzsz:
+    pkg:
+        - installed
+
