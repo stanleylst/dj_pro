@@ -1,5 +1,5 @@
 include:
     - .lrzsz
-    - .nginx
+    - .web
     - .apt-sources
     - .nfs

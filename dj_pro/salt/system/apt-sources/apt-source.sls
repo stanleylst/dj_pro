@@ -1,3 +1,3 @@
 /etc/apt/sources.list:
     file.managed:
-        - source: salt://apt-sources/sources.lists
+        - source: salt://system/apt-sources/sources.lists

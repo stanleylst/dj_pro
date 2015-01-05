@@ -26,7 +26,7 @@ update_exports:
 server_exports:
     file.managed:
         - name: /etc/exports
-        - source: salt://nfs/exports
+        - source: salt://system/nfs/exports
         - user: root
         - group: root
         - mode: 644
