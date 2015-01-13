@@ -43,4 +43,7 @@ urlpatterns = patterns('',
     url(r'^setgame/', include('setgame.urls',
                             namespace='setgame')),
 
+    url(r'^servers/', include('servers.urls',
+                            namespace='servers')),
+
 )

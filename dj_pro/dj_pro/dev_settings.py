@@ -17,6 +17,7 @@ DEV_INSTALLED_APPS = (
     #rest_framework
     'rest_framework',
     'setgame',
+    'servers',
     'djangobower',
 #    'snippets',
 #    'south',
