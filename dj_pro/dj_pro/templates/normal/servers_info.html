@@ -1,0 +1,16 @@
+<div class="col-md-12 column" ng-controller="servers_info_ctrl">
+    <table id="table-sys-basic" data-height="299" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
+    </table>
+        <p>((infos))</p>
+        <ul>
+            <li ng-repeat="i in infos">(( i.memory_info.mem.used_percent ))</li>
+        </ul>
+
+</div>
+
+<!-- need js file
+css/libs/bootstrap-table.min.css
+js/libs/bootstrap/bootstrap-table.min.js
+js/angular-controller/user_ctrl.js
+js/angular-factory/Servers_Info.js
+-->

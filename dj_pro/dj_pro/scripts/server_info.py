@@ -43,15 +43,15 @@ class Serverinfo(object):
         except:
             eth1 = 'not exist'
         hostname = socket.gethostname()
-        base_info = {'eth0':eth0,\
-                    'eth1':eth1,\
-                    'hostname':hostname,\
-                    'cpu_info':self.cpu_info,\
-                    'memory_info':self.memory_info,\
-                    'disk_info':self.disk_info,\
-                    'netio_info':self.netio_info,\
-                    'use_time_info':self.use_time_info,\
-                    'sys_process_info':self.sys_process_info,\
+        base_info = {'eth0':str(eth0),\
+                    'eth1':str(eth1),\
+                    'hostname':str(hostname),\
+                    'cpu_info':str(self.cpu_info),\
+                    'memory_info':str(self.memory_info),\
+                    'disk_info':str(self.disk_info),\
+                    'netio_info':str(self.netio_info),\
+                    'use_time_info':str(self.use_time_info),\
+                    'sys_process_info':str(self.sys_process_info),\
                     }
         seturl = [self.post_api,base_info]
         data = json.dumps(seturl[1])
@@ -74,11 +74,15 @@ class Serverinfo(object):
 
 
     def _cpu_info(self):
+        num = 0
         for k,i in enumerate(psutil.cpu_times(percpu=True)):
-            self._cpu['cpu'] = k
-            self._cpu['usertime'] = i.user
-            self._cpu['systime'] = i.system
-            self._cpu['idle'] = i.idle
+            k = str(k)
+            self._cpu['cpu-' + k] = dict()
+            self._cpu['cpu-' + k]['usertime'] = str(i.user)
+            self._cpu['cpu-' + k]['systime'] = str(i.system)
+            self._cpu['cpu-' + k]['idle'] = str(i.idle)
+            num = num + 1
+        self._cpu['cpu_num'] = num
         return self._cpu
 
     def _memory_info(self):
@@ -86,14 +90,14 @@ class Serverinfo(object):
         swap_get = psutil.swap_memory()
         self._memory['mem'] = dict()
         self._memory['swap'] = dict()
-        self._memory['mem']['total'] = memory_get.total/1024/1024
-        self._memory['mem']['used'] = memory_get.used/1024/1024
-        self._memory['mem']['free'] = memory_get.free/1024/1024
-        self._memory['mem']['used_percent'] = memory_get.percent
-        self._memory['swap']['total'] = swap_get.total/1024/1024
-        self._memory['swap']['used'] = swap_get.used/1024/1024
-        self._memory['swap']['free'] = swap_get.free/1024/1024
-        self._memory['swap']['used_percent'] = swap_get.percent
+        self._memory['mem']['total'] = str(memory_get.total/1024/1024)
+        self._memory['mem']['used'] = str(memory_get.used/1024/1024)
+        self._memory['mem']['free'] = str(memory_get.free/1024/1024)
+        self._memory['mem']['used_percent'] = str(memory_get.percent)
+        self._memory['swap']['total'] = str(swap_get.total/1024/1024)
+        self._memory['swap']['used'] = str(swap_get.used/1024/1024)
+        self._memory['swap']['free'] = str(swap_get.free/1024/1024)
+        self._memory['swap']['used_percent'] = str(swap_get.percent)
         return self._memory
 
     def _disk_info(self):
@@ -102,24 +106,24 @@ class Serverinfo(object):
             n = str(n)
             mount = 'mountpoint' + n
             self._disk[mount] = dict()
-            self._disk[mount]['mountpoint'] = i
-            self._disk[mount]['total'] = j.total/1024/1024
-            self._disk[mount]['used'] = j.used/1024/1024
-            self._disk[mount]['free'] = j.free/1024/1024
-            self._disk[mount]['percent'] = j.percent
+            self._disk[mount]['mountpoint'] = str(i)
+            self._disk[mount]['total'] = str(j.total/1024/1024)
+            self._disk[mount]['used'] = str(j.used/1024/1024)
+            self._disk[mount]['free'] = str(j.free/1024/1024)
+            self._disk[mount]['percent'] = str(j.percent)
         return self._disk
 
     def _netio_info(self):
         netio_get = psutil.net_io_counters()
-        self._netio['bytes_sent'] = netio_get.bytes_sent
-        self._netio['bytes_recv'] = netio_get.bytes_recv
-        self._netio['packets_sent'] = netio_get.packets_sent
-        self._netio['packets_recv'] = netio_get.packets_recv
+        self._netio['bytes_sent'] = str(netio_get.bytes_sent)
+        self._netio['bytes_recv'] = str(netio_get.bytes_recv)
+        self._netio['packets_sent'] = str(netio_get.packets_sent)
+        self._netio['packets_recv'] = str(netio_get.packets_recv)
         return self._netio
 
     def _use_time_info(self):
-        self._use_time['count_user'] = len(psutil.users())
-        self._use_time['start_time'] = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
+        self._use_time['count_user'] = str(len(psutil.users()))
+        self._use_time['start_time'] = str(datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S"))
         return self._use_time
 
     def _sys_process_info(self,services):
@@ -129,7 +133,7 @@ class Serverinfo(object):
             for i in res:
                 if i.name() == x:
                     container.append(i.pid)
-            self._sys_process_set[x] = container
+            self._sys_process_set[x] = str(container)
         return self._sys_process_set
 
     def _sys_process_detail(self,services):
