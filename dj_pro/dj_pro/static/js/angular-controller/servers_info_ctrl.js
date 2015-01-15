@@ -2,6 +2,9 @@ app.controller('servers_info_ctrl', function($scope, Servers_Info) {
     // Get all posts
     $scope.servers_infos = Servers_Info.query();
     
+    servers_only = Servers_Info.get({eth1:'192.168.70.130'});
+    console.log(servers_only);
+
     Servers_Info.query(function(infos){
         $scope.infos = [];
         for(i in infos){
@@ -18,7 +21,36 @@ app.controller('servers_info_ctrl', function($scope, Servers_Info) {
                     'update_time' : infos[i].update_time,
                     });
             };
-        
+
+            // deal event and format
+            window.operateEvents = {
+                'click .like': function (e, value, row, index) {
+                alert('You click like icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+                },
+                'click .edit': function (e, value, row, index) {
+                alert('You click edit icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+                },
+                'click .remove': function (e, value, row, index) {
+                alert('You click remove icon, row: ' + JSON.stringify(row));
+                console.log(value, row, index);
+                }
+            };
+             function operateFormatter(value, row, index) {
+                return [
+                    '<a class="like" href="javascript:void(0)" title="Like">',
+                    '<i class="glyphicon glyphicon-heart"></i>',
+                    '</a>',
+                    '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
+                    '<i class="glyphicon glyphicon-edit"></i>',
+                    '</a>',
+                    '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+                    '<i class="glyphicon glyphicon-remove"></i>',
+                    '</a>'
+                ].join('');
+            };
+
         $scope.info_base = [];
         for(i = 0; i < $scope.infos.length;i++){
             $scope.info_base.push({
@@ -31,8 +63,11 @@ app.controller('servers_info_ctrl', function($scope, Servers_Info) {
             'update_time' : $scope.infos[i].update_time
             });
             }; 
-            console.log($scope.info_base);
+
             table_base = [{
+                    field: 'state',
+                    checkbox: true
+                }, {
                     field:'eth0',
                     title:'eth0'
                 },{ 
@@ -44,8 +79,18 @@ app.controller('servers_info_ctrl', function($scope, Servers_Info) {
                 },{         
                     field:'update_time',
                     title:'update_time'
+                }, {
+                    field: 'operate',
+                    title: 'Item Operate',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                    formatter: operateFormatter,
+                    events: operateEvents
                 }];
-            table_base.splice(3,0,
+            
+        
+            table_base.splice(4,0,
             {   
                     field:'cpu_num',
                     title:'cpu_num'
@@ -57,9 +102,21 @@ app.controller('servers_info_ctrl', function($scope, Servers_Info) {
                     title:'use_time'
             });
             table_sys_basic = table_base.slice();
+
+
+
             console.log(table_base);
             console.log(table_sys_basic);
             $('#table-sys-basic').bootstrapTable({
+            method: 'get',
+            cache: false,
+            pagination: true,
+            pageSize: 50,
+            pageList: [10, 25, 50, 100, 200],
+            search: true,
+            showColumns: true,
+            showRefresh: true,
+            clickToSelect: true,
             columns: table_base,
             data: $scope.info_base
             });
