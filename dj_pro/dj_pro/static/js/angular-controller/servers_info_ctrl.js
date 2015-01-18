@@ -1,4 +1,4 @@
-app.controller('servers_info_ctrl', function($scope, Servers_Info) {
+app.controller('servers_info_ctrl', function($scope, $window,Servers_Info) {
     // Get all posts
     $scope.servers_infos = Servers_Info.query();
     
@@ -24,9 +24,9 @@ app.controller('servers_info_ctrl', function($scope, Servers_Info) {
 
             // deal event and format
             window.operateEvents = {
-                'click .like': function (e, value, row, index) {
-                alert('You click like icon, row: ' + JSON.stringify(row));
-                console.log(value, row, index);
+                'click .see': function (e, value, row, index) {
+                alert('see more about: ' + row.eth1);
+                 $window.location.href = "/servers/base_info/"+row.eth1;
                 },
                 'click .edit': function (e, value, row, index) {
                 alert('You click edit icon, row: ' + JSON.stringify(row));
@@ -39,8 +39,8 @@ app.controller('servers_info_ctrl', function($scope, Servers_Info) {
             };
              function operateFormatter(value, row, index) {
                 return [
-                    '<a class="like" href="javascript:void(0)" title="Like">',
-                    '<i class="glyphicon glyphicon-heart"></i>',
+                    '<a class="see" href="javascript:void(0)" title="see">',
+                    '<i class="glyphicon glyphicon-eye-open"></i>',
                     '</a>',
                     '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
                     '<i class="glyphicon glyphicon-edit"></i>',

@@ -29,6 +29,7 @@ class Servers_InfoDetail(generics.RetrieveUpdateDestroyAPIView):
     def get(self,request,*args,**kwargs):
         response = super(Servers_InfoDetail,self).get(request,*args,**kwargs)
         if request.accepted_renderer.format == 'html':
+            print response.data
             return Response({'data': response.data}, template_name='server_detail.html')
         return response
 

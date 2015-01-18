@@ -105,6 +105,18 @@ a.remove-tipper {
     display: block;
 }
 
-.addsong {
-  background: url('../images/icon_star.png') 0 0 repeat;
+.handpointer{
+    cursor:pointer
+}
+
+.addsongbg {
+  background: url('../images/music_upload_bg.jpg') 0 0 repeat;
+}
+
+.addsongtitle {
+  background: url('../images/music_upload_bg3.jpg') 0 0 repeat;
+}
+
+.userlistbg {
+  background: url('../images/music_upload_bg2.jpg') 0 0 repeat;
 }

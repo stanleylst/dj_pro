@@ -1,7 +1,8 @@
 app.controller('servers_detail_ctrl', function($scope, Servers_Info) {
     // Get all posts
     
-    server = Servers_Info.get({eth1:'192.168.70.130'},function(){
+    eth1 = (window.location.pathname).split('/')[3];
+    server = Servers_Info.get({eth1:eth1},function(){
         console.log(server.eth0);
 
         server.cpu_info = eval("("+server.cpu_info+")");
