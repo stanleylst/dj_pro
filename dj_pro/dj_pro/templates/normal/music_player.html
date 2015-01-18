@@ -17,9 +17,10 @@
                 </div>
             </div>
 
-            <span>image:</span> <img ng-src="((playlist[audio.currentTrack-1].img))" class="img-thumbnail" width="100" height="100">
-            <span>song:((playlist[audio.currentTrack-1].songname.split("/")[5]))</span>
-            <br />current time:((audio.currentTime|MinSecFilter))
+            <img ng-src="((playlist[audio.currentTrack-1].img))" class="img-thumbnail" width="100" height="100">
+            <span class="glyphicon glyphicon-music"></span><span>((playlist[audio.currentTrack-1].songname.split("/")[5].split(".")[0]))</span>
+            <br /><span class="glyphicon glyphicon-time"></span><span>((audio.currentTime|MinSecFilter))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span class="glyphicon glyphicon-volume-down"></span><span id="js-display-change">100</span>
             <br/>
             <div class="row col-sm-12 column">
                 <div class="slider progress">
@@ -33,7 +34,6 @@
                 <div class="example" class="col-md-1 column">
                     <input type="text" class="js-check-change" />
                     <br/>
-                        <div class="col-md-6">volume:<span id="js-display-change">100</span></div>
                 </div>
             </div>
         </div>
@@ -44,17 +44,19 @@
     
  
         <div class="col-md-12">
+            <div class="col-md-2"></div>
             <span ng-show="audio.playing">Player status: Playing</span>
             <span ng-show="!audio.playing">Player status: Paused</span>
             <br />
-            <button ng-click="myprev()" class="btn btn btn-info">Prev</button>
-            <button ng-click="audio.play()" class="btn btn btn-default" ng-show="!audio.playing">Play</button>
-            <button ng-click="audio.pause()" class="btn btn btn-info" ng-show="audio.playing">Stop</button>
-            <button ng-click="mynext()" class="btn btn btn-info">Next</button>
-            <button ng-click="repeat_func()" class="btn btn btn-default" ng-show="!repeat">Repeat Once</button>
-            <button ng-click="repeat_func()" class="btn btn btn-info" ng-show="repeat">Cancel Repeat </button>
-            <button ng-click="goloop()" class="btn btn btn-default" ng-show="!loop">go loop </button>
-            <button ng-click="goloop()" class="btn btn btn-info" ng-show="loop">Cancel loop </button>
+            <div class="col-md-2"></div>
+            <span ng-click="myprev()" class="glyphicon glyphicon-step-backward"></span>
+            <span ng-click="audio.play()" class="glyphicon glyphicon-play" ng-show="!audio.playing"></span>
+            <span ng-click="audio.pause()" class="glyphicon glyphicon-pause" ng-show="audio.playing"></span>
+            <span ng-click="mynext()" class="glyphicon glyphicon-step-forward"></span>
+            <span ng-click="repeat_func()" class="glyphicon glyphicon-arrow-right" ng-show="!repeat"></span>
+            <span ng-click="repeat_func()" class="glyphicon glyphicon-repeat" ng-show="repeat"></span>
+            <span ng-click="goloop()" class="glyphicon glyphicon-circle-arrow-right" ng-show="!loop"></span>
+            <span ng-click="goloop()" class="glyphicon glyphicon-retweet" ng-show="loop"></span>
             <br />
         </div>
     <div class="col-md-12 column"><br/></div>
@@ -63,8 +65,8 @@
         <div collapse="isCollapsed">
             <div class="col-md-5 column">
                 <div class="col-md-12 column" ng-repeat="music in playlist">
-                    <span>image: </span> <img ng-src="((music.img))" class="img-thumbnail" width="70" height="70">
-                    <button ng-click="audio.play(music.id-1+1)" class="btn btn btn-info"><span>song:((music.songname.split("/")[5]))</span></button>
+                    <img ng-src="((music.img))" class="img-thumbnail" width="70" height="70">
+                    <button ng-click="audio.play(music.id-1+1)" class="btn btn btn-info"><span class="glyphicon glyphicon-headphones"> ((music.songname.split("/")[5].split(".")[0]))</span></button>
                 </div>
             </div>
         </div>
@@ -85,7 +87,7 @@
                         <input type="file" file-model="music_img"/>
                     <br />
                     <br />
-                    <button type="submit" ng-click="uploadFile()" class="btn btn btn-primary">upload</button>
+                    <button class="btn btn-info"><span type="submit" ng-click="uploadFile()" class="glyphicon glyphicon-arrow-up">upload</span></button>
                     <p ng-show='loadinfo' class="bg-danger">((loadinfo))</p>
                     <p ng-show='$root.loadinfo' class="bg-danger">(($root.loadinfo))</p>
             </div>

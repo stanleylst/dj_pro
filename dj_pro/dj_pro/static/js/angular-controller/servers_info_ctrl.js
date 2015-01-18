@@ -51,6 +51,17 @@ app.controller('servers_info_ctrl', function($scope, Servers_Info) {
                 ].join('');
             };
 
+        function rowStyle(row, index) {
+            var classes = ['active', 'success', 'info', 'warning', 'danger'];
+
+            if (index % 2 === 0 && index / 2 < classes.length) {
+                return {
+                    classes: classes[index / 2]
+                };
+            }
+            return {};
+        };
+
         $scope.info_base = [];
         for(i = 0; i < $scope.infos.length;i++){
             $scope.info_base.push({

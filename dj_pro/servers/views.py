@@ -23,6 +23,7 @@ class Servers_InfoList(generics.ListCreateAPIView):
 class Servers_InfoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Servers_Info.objects.all()
     serializer_class = Servers_InfoSerializer
+    renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
     lookup_field = 'eth1'
 
     def get(self,request,*args,**kwargs):
