@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Servers_Info(models.Model):
@@ -11,7 +12,7 @@ class Servers_Info(models.Model):
     netio_info = models.CharField(max_length=800)
     use_time_info = models.CharField(max_length=800)
     sys_process_info = models.CharField(max_length=800)
-    update_time = models.DateTimeField(auto_now_add=True)
+    update_time = models.DateTimeField(default=timezone.now)
 
     def __unicode__(self):
         return '%s'%(self.eth1)

@@ -33,8 +33,12 @@ app.controller('servers_info_ctrl', function($scope, $window,Servers_Info) {
                 console.log(value, row, index);
                 },
                 'click .remove': function (e, value, row, index) {
-                alert('You click remove icon, row: ' + JSON.stringify(row));
+                alert('You click remove icon, row: ' + row.eth1);
                 console.log(value, row, index);
+                remove_server = {eth1:row.eth1};
+                Servers_Info.remove(remove_server);
+                alert(row.eth1 + 'has been removed');
+                $window.location.href = "/servers/base_info";
                 }
             };
              function operateFormatter(value, row, index) {

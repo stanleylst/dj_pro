@@ -4,7 +4,9 @@
 {% block title %}test{% endblock %}
 
 {% block content %}
-{% include "normal/time.html" %}
+<link rel="stylesheet/less" type="text/css" href="{% static 'less/mystyle.less' %}">
+<link rel="stylesheet/less" type="text/css" href="{% static 'less/bootstrap.less' %}">
+{% include "normal/test.html" %}
 {% endblock %}
 
 {% block chosen_js_file %}

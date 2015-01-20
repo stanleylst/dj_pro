@@ -29,11 +29,16 @@ class Servers_InfoDetail(generics.RetrieveUpdateDestroyAPIView):
     def get(self,request,*args,**kwargs):
         response = super(Servers_InfoDetail,self).get(request,*args,**kwargs)
         if request.accepted_renderer.format == 'html':
-            print response.data
             return Response({'data': response.data}, template_name='server_detail.html')
         return response
 
 class Test(generics.ListCreateAPIView):
     queryset = Servers_Info.objects.all()
     serializer_class = Servers_InfoSerializer
+    renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
 
+    def list(self,request,*args,**kwargs):
+        response = super(Test,self).list(request,*args,**kwargs)
+        if request.accepted_renderer.format == 'html':
+            return Response({'data': response.data}, template_name='test.html')
+        return response

@@ -1,0 +1,27 @@
+<div>
+    <div id="lastVal" ng-controller="ShowerCtrl">{{ lastVal }}</div>
+    <div id="button-holder" ng-controller="CookieCtrl">
+        <button ng-click="bump()">Bump!</button>
+    </div>
+</div>
+
+    <section class="content">
+
+        <div class="example">
+
+          <div class="slider-wrapper vertical-wrapper">
+            <input type="text" class="js-check-change" />
+            <div id="js-display-change" class="display-box"></div>
+          </div>
+        </div>
+    </section>
+<script type="text/javascript" src="../static/js/libs/slider/powerange.min.js"></script>
+  <script type="text/javascript">
+     var vert = document.querySelector('.js-check-change');
+ var changeInput = new Powerange(vert, { start: 100, decimal: true, min: 0, max: 100, vertical: true });
+ changeInput.onchange = function() {
+ document.getElementById('js-display-change').innerHTML = changeInput.value;
+ $scope.vol = changeInput.value;
+ };
+
+  </script>

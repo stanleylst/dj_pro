@@ -8,10 +8,9 @@ app.factory('Servers_Info', ['$resource', function($resource) {
                 method: 'POST',
                 isArray: false,
                 },
-            find:{
-                method: 'GET',
+            remove:{
+                method: 'DELETE',
                 isArray: false,
-                params:{eth1:'@eth1'},
                 },
                 });
 }]);

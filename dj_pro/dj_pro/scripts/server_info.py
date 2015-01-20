@@ -1,15 +1,20 @@
 import psutil
-import datetime,sys
-import requests,json
-import socket,fcntl,struct
+import datetime
+import sys
+import requests
+import json
+import socket
+import fcntl
+import struct
 # because of not having Domain Name Resolution and using virtual Domain,
 # do not forget to add domain and ip to /etc/hosts
 
+
 class Serverinfo(object):
-    base_url = 'http://gj.com/servers/'
-    post_api = base_url + 'base_info'
 
     def __init__(self):
+        self.base_url = 'http://gj.com/servers/'
+        self.post_api = self.base_url + 'base_info'
         self._cpu = dict()
         self._memory = dict()
         self._disk = dict()
@@ -22,13 +27,17 @@ class Serverinfo(object):
         self.disk_info = self._disk_info()
         self.netio_info = self._netio_info()
         self.use_time_info = self._use_time_info()
-        services=['nginx','uwsgi','cron','postfix','vsftpd','postgres','salt-minion','salt-master']
+        services = ['nginx', 'uwsgi', 'cron', 'postfix',
+                    'vsftpd', 'postgres', 'salt-minion', 'salt-master']
         self.sys_process_info = self._sys_process_info(services)
         self.sys_process_detail = self._sys_process_detail(services)
 
-    def get_ip_address(self,ifname):
+    def get_ip_address(self, ifname):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        return socket.inet_ntoa(fcntl.ioctl(s.fileno(),0x8915,struct.pack('256s', ifname[:15]))[20:24])
+        return socket.inet_ntoa(fcntl.ioctl(
+                                s.fileno(), 0x8915,
+                                struct.pack('256s', ifname[:15])
+                                )[20:24])
 
     def __getattr__(self, method):
         return 'no this attribute!'
@@ -43,39 +52,42 @@ class Serverinfo(object):
         except:
             eth1 = 'not exist'
         hostname = socket.gethostname()
-        base_info = {'eth0':str(eth0),\
-                    'eth1':str(eth1),\
-                    'hostname':str(hostname),\
-                    'cpu_info':str(self.cpu_info),\
-                    'memory_info':str(self.memory_info),\
-                    'disk_info':str(self.disk_info),\
-                    'netio_info':str(self.netio_info),\
-                    'use_time_info':str(self.use_time_info),\
-                    'sys_process_info':str(self.sys_process_info),\
-                    }
-        seturl = [self.post_api,base_info]
+        base_info = {
+            'eth0': str(eth0),
+            'eth1': str(eth1),
+            'hostname': str(hostname),
+            'cpu_info': str(self.cpu_info),
+            'memory_info': str(self.memory_info),
+            'disk_info': str(self.disk_info),
+            'netio_info': str(self.netio_info),
+            'use_time_info': str(self.use_time_info),
+            'sys_process_info': str(self.sys_process_info)
+            }
+        seturl = [self.post_api, base_info]
         data = json.dumps(seturl[1])
         headers = {'content-type': 'application/json'}
         try:
             updateurl = seturl[0] + '/' + eth1
-            r = requests.put(updateurl,data = data,headers=headers)
-            if r.status_code not in range(200,208):
+            r = requests.put(updateurl, data=data, headers=headers)
+            if r.status_code not in range(200, 208):
                 raise
-            print json.dumps(seturl[1]) + "has been updated to " + updateurl
+            print json.dumps(
+                seturl[1]) + "has been updated to " + updateurl
         except:
-            r = requests.post(seturl[0],data = data,headers=headers)
+            r = requests.post(seturl[0], data=data, headers=headers)
             try:
-                if r.status_code not in range(200,208):
+                if r.status_code not in range(200, 208):
                     raise
                 else:
-                    print json.dumps(seturl[1]) +" has been posted to " + seturl[0]
+                    print json.dumps(
+                        seturl[1]) + " has been posted to " + seturl[0]
             except:
-                print json.dumps(seturl[1]) +" was not posted to " + seturl[0]
-
+                print json.dumps(
+                    seturl[1]) + " was not posted to " + seturl[0]
 
     def _cpu_info(self):
         num = 0
-        for k,i in enumerate(psutil.cpu_times(percpu=True)):
+        for k, i in enumerate(psutil.cpu_times(percpu=True)):
             k = str(k)
             self._cpu['cpu-' + k] = dict()
             self._cpu['cpu-' + k]['usertime'] = str(i.user)
@@ -101,8 +113,9 @@ class Serverinfo(object):
         return self._memory
 
     def _disk_info(self):
-        disk_get = [(i.mountpoint,psutil.disk_usage(i.mountpoint)) for i in psutil.disk_partitions()]
-        for n,(i,j) in enumerate(disk_get):
+        disk_get = [(i.mountpoint, psutil.disk_usage(i.mountpoint))
+                    for i in psutil.disk_partitions()]
+        for n, (i, j) in enumerate(disk_get):
             n = str(n)
             mount = 'mountpoint' + n
             self._disk[mount] = dict()
@@ -123,10 +136,13 @@ class Serverinfo(object):
 
     def _use_time_info(self):
         self._use_time['count_user'] = str(len(psutil.users()))
-        self._use_time['start_time'] = str(datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S"))
+        self._use_time['start_time'] = str(
+            datetime.datetime.fromtimestamp(
+                psutil.boot_time()).strftime(
+                    "%Y-%m-%d %H:%M:%S"))
         return self._use_time
 
-    def _sys_process_info(self,services):
+    def _sys_process_info(self, services):
         res = psutil.get_process_list()
         for x in services:
             container = []
@@ -136,7 +152,7 @@ class Serverinfo(object):
             self._sys_process_set[x] = str(container)
         return self._sys_process_set
 
-    def _sys_process_detail(self,services):
+    def _sys_process_detail(self, services):
         sys_process_get = psutil.pids()
         for n in sys_process_get:
             try:
@@ -153,18 +169,20 @@ class Serverinfo(object):
                 self._sys_process[process_nu]['name'] = proc.name()
                 self._sys_process[process_nu]['dir'] = proc.cwd()
                 self._sys_process[process_nu]['status'] = proc.status()
-                self._sys_process[process_nu]['create_time'] = datetime.datetime.fromtimestamp(proc.create_time()).strftime("%Y-%m-%d %H:%M:%S")
-                self._sys_process[process_nu]['memory_percent'] = proc.memory_percent()
+                self._sys_process[process_nu]['create_time'] = datetime.\
+                    datetime.fromtimestamp(
+                        proc.create_time()).strftime(
+                            "%Y-%m-%d %H:%M:%S")
+                self._sys_process[process_nu]['memory_percent'] = proc.\
+                    memory_percent()
         return self._sys_process
 
 if __name__ == '__main__':
     svr = Serverinfo()
     svr.send_data()
-    #print svr.cpu_info
-    #print svr.memory_info
-    #print svr.disk_info
-    #print svr.netio_info
-    #print svr.use_time_info
-    #print svr.sys_process_info
-
-
+    # print svr.cpu_info
+    # print svr.memory_info
+    # print svr.disk_info
+    # print svr.netio_info
+    # print svr.use_time_info
+    # print svr.sys_process_info
