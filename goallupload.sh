@@ -11,4 +11,4 @@ if [ "$deletefile" != "" ]; then
     git rm $deletefile  
 fi 
 git push origin master
-mv -r /root/media dj_pro/dj_pro/
+mv /root/media dj_pro/dj_pro/
