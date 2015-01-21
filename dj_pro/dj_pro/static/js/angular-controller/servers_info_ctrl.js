@@ -55,12 +55,13 @@ app.controller('servers_info_ctrl', function($scope, $window,Servers_Info) {
                 ].join('');
             };
 
-        function rowStyle(row, index) {
+        function rowStyles(row, index) {
             var classes = ['active', 'success', 'info', 'warning', 'danger'];
-
-            if (index % 2 === 0 && index / 2 < classes.length) {
+            
+            console.log(row.memory_used.split('%')[0]);
+            if (row.memory_used.split('%')[0] > 80) {
                 return {
-                    classes: classes[index / 2]
+                    classes: classes[4]
                 };
             }
             return {};
@@ -124,6 +125,7 @@ app.controller('servers_info_ctrl', function($scope, $window,Servers_Info) {
             console.log(table_sys_basic);
             $('#table-sys-basic').bootstrapTable({
             method: 'get',
+            striped: true,
             cache: false,
             pagination: true,
             pageSize: 50,
@@ -133,6 +135,7 @@ app.controller('servers_info_ctrl', function($scope, $window,Servers_Info) {
             showRefresh: true,
             clickToSelect: true,
             columns: table_base,
+            rowStyle: rowStyles,
             data: $scope.info_base
             });
             /*$('#table-sys-basic1').bootstrapTable({
