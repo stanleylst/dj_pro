@@ -1,0 +1,5 @@
+- hosts: misa
+  remote_user: root
+  tasks:
+    - name: runscript 
+      script: /root/echo.sh 1234

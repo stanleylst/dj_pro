@@ -4,10 +4,9 @@
 {% block title %}test{% endblock %}
 
 {% block content %}
-<link rel="stylesheet/less" type="text/css" href="{% static 'less/mystyle.less' %}">
-<link rel="stylesheet/less" type="text/css" href="{% static 'less/bootstrap.less' %}">
 {% include "normal/test.html" %}
 {% endblock %}
 
 {% block chosen_js_file %}
+<script type="text/javascript" src="{% static 'js/angular-controller/jquery.test.js' %}"></script>
 {% endblock %}
