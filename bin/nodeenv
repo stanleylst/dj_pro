@@ -1,9 +1,0 @@
-#!/dj_pro/bin/python
-# EASY-INSTALL-ENTRY-SCRIPT: 'nodeenv==0.11.1','console_scripts','nodeenv'
-__requires__ = 'nodeenv==0.11.1'
-import sys
-from pkg_resources import load_entry_point
-
-sys.exit(
-   load_entry_point('nodeenv==0.11.1', 'console_scripts', 'nodeenv')()
-)
