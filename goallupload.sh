@@ -3,7 +3,6 @@ mv dj_pro/dj_pro/media /root/
 mv build /root/ 
 mv include /root/
 mv local   /root/ 
-mv bin   /root/
 mv lib   /root/
 git add .
 if [ -z "$1" ]; then
@@ -20,5 +19,4 @@ mv /root/media dj_pro/dj_pro/
 mv /root/build .
 mv /root/include . 
 mv /root/local .
-mv /root/bin .
 mv /root/lib .
