@@ -6009,7 +6009,7 @@ angular.module('angularSoundManager', [])
             repeat = false,
             autoPlay = true,
             isPlaying = false,
-            volume = 90,
+            volume = 100,
             trackProgress = 0,
             playlist = [];
 
@@ -6308,27 +6308,13 @@ angular.module('angularSoundManager', [])
             getVolume: function () {
                 return volume;
             },
-            adjustVolume: function (increase) {
-                var changeVolume = function (volume) {
+            adjustVolume: function (volume) {
                     for (var i = 0; i < soundManager.soundIDs.length; i++) {
                         var mySound = soundManager.getSoundById(soundManager.soundIDs[i]);
                         mySound.setVolume(volume);
                     }
 
                     $rootScope.$broadcast('music:volume', volume);
-                };
-
-                if (increase === true) {
-                    if (volume < 100) {
-                        volume = volume + 10;
-                        changeVolume(volume);
-                    }
-                } else {
-                    if (volume > 0) {
-                        volume = volume - 10;
-                        changeVolume(volume);
-                    }
-                }
             },
             clearPlaylist: function (callback) {
                 console.log('clear playlist');
@@ -6489,6 +6475,7 @@ angular.module('angularSoundManager', [])
                         duration = sound.durationEstimate;
 
                     sound.setPosition((x / width) * duration);
+                    console.log((x / width) * duration);
                 });
 
             }
@@ -6590,23 +6577,13 @@ angular.module('angularSoundManager', [])
     .directive('musicVolume', ['angularPlayer', function (angularPlayer) {
         return {
             restrict: "EA",
+            template: ' <input ng-model="vol" ng-change="setvol(vol)">',
             link: function (scope, element, attrs) {
-
-                element.bind('click', function (event) {
-                    if (attrs.type === 'increase') {
-                        angularPlayer.adjustVolume(true);
-                    } else {
-                        angularPlayer.adjustVolume(false);
-                    }
-                });
+                scope.setvol = function(){
+                    angularPlayer.adjustVolume(scope.vol);
+                };
 
                 scope.volume = angularPlayer.getVolume();
-                scope.$on('music:volume', function (event, data) {
-                    scope.$apply(function () {
-                        scope.volume = data;
-                    });
-                });
-
             }
         };
     }])

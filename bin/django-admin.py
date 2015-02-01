@@ -1,4 +1,4 @@
-#!/dj_pro/bin/python
+#!/dj_pro/bin/python2
 from django.core import management
 
 if __name__ == "__main__":

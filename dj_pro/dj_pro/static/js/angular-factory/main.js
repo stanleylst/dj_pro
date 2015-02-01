@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['mediaPlayer','ngResource','ipCookie','ui.bootstrap','angular-md5','base64']);
+var app = angular.module('myApp', ['angularSoundManager','mediaPlayer','ngResource','ipCookie','ui.bootstrap','angular-md5','base64']);
     app.config(function($interpolateProvider) { 
       $interpolateProvider.startSymbol('((');
       $interpolateProvider.endSymbol('))');

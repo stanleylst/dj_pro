@@ -1,4 +1,4 @@
-#!/dj_pro/bin/python
+#!/dj_pro/bin/python2
 #
 # The Python Imaging Library
 # $Id$

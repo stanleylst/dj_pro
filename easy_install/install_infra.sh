@@ -1,5 +1,8 @@
+apt-get install virtualenv python-pip python-dev  python-setuptools -force-yes -y
+virtualenv /dj_pro/
+source /dj_pro/bin/activate
 pip install django==1.7
-pip install djangorestframework=3
+pip install djangorestframework==3
 pip install django-bower==5.0.1
 pip install httplib2==0.9
 pip install Jinja2==2.7.3
@@ -10,6 +13,7 @@ pip install Pillow==2.6.1
 pip install Pillow-PIL==0.1dev
 post_ver=`dpkg -l|grep -E "postgresql-[0-9].[0-9]"|grep -Eo "[0-9]\.[0-9]"|uniq`
 apt-get install postgresql-server-dev-$post_ver
+apt-get install postgresql
 pip install psycopg2==2.5.4
 pip install pycrypto==2.6.1
 pip install PyYAML==3.11
@@ -17,9 +21,15 @@ pip install requests==2.5.1
 pip install simplejson==3.6.5
 pip install six==1.8.0
 pip install uWSGI==2.0.9
-cd ../dj_pro
+cd dj_pro
 ./manage.py migrate
 psql -h db -U postgres dj_pro -f ../easy_install/dj_pro.sql
+
+apt-get install nginx --force-yes -y
+ln -s /dj_pro/nginx.conf /etc/nginx/nginx.conf
+ln -s /dj_pro/local_nginx.conf /etc/nginx/sites-available/local_nginx.conf
+ln -s /dj_pro/local_nginx.conf /etc/nginx/sites-enabled/local_nginx.conf
+service nginx restart
 #plumber (1.3)
 #pep8 (1.5.7)
 #ecdsa (0.11)
