@@ -4,12 +4,22 @@
 {% block title %}test{% endblock %}
 
 {% block content %}
-{% include "normal/test.html" %}
+{% include "normal/music_player.html" %}
 {% endblock %}
 
 {% block chosen_js_file %}
-<link href="{% static 'css/test.css' %}" rel="stylesheet"> 
-<script type="text/javascript" src="{% static 'js/angular-controller/jquery.test.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/angular-controller/Sound2.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/libs/angular/angular-soundmanager2-change.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/angular-factory/Music.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/angular-factory/Game_Script.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/angular-factory/Excuted_Command.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/angular-controller/game_script_ctrl.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/angular-controller/excuted_command_ctrl.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/angular-controller/user_ctrl.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/angular-controller/music_ctrl.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/angular-controller/PlayerController.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/angular-controller/game_login.js' %}"></script>
 {% endblock %}
+                                                                                                                
