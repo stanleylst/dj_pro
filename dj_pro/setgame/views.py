@@ -23,6 +23,15 @@ class UserList(generics.ListCreateAPIView):
     renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
 
     def list(self,request,*args,**kwargs):
+        try:
+            user = request.COOKIES['loginname']
+            print user
+            username = request.user.username
+            print username
+            userna = request.session['loginname']
+            print userna
+        except:
+            print 'no user cookie'
         response = super(UserList,self).list(request,*args,**kwargs)
         if request.accepted_renderer.format == 'html':
             return Response({'data': response.data}, template_name='form_user_login.html')

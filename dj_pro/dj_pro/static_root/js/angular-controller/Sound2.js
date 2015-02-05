@@ -24,7 +24,10 @@ app.controller('Sound2_Ctrl',
         $scope.music_owner = owner.username;
     };
 
+    $scope.replay = false;
+    $scope.repeat = false;
     $scope.$watch('music_owner',function() {
+        $scope.replay = false;
         musiclist = [];
         for (i in allmusic){                             //choose the musiclist via owner;
             if (allmusic[i].owner == $scope.music_owner){
@@ -71,20 +74,53 @@ app.controller('Sound2_Ctrl',
     console.log(angularPlayer.getCurrentTrack());
     console.log(angularPlayer.currentTrackData());
     
-    $scope.replay = false;
     $scope.replayone = function(){
+        if($scope.repeat == true){
+            $scope.repeat = false;
+        };
         $scope.getid = angularPlayer.getCurrentTrack();
         $scope.replay = !$scope.replay;
         console.log('replay');
+        renum = angularPlayer.getCurrentTrack();
     };
     
+    $scope.next_track = function(){
+        if($scope.replay == true){
+            $scope.replayone();};
+            $timeout(function(){
+                angularPlayer.nextTrack();
+                if($scope.replay == true){
+                    $scope.replayone();
+                };
+            });
+    };
+
+    $scope.prev_track = function(){
+        if($scope.replay == true){
+            $scope.replayone();};
+            $timeout(function(){
+                angularPlayer.prevTrack();
+                if($scope.replay == true){
+                    $scope.replayone();
+                };
+            });
+    };
+
+    $scope.repeat_toggle = function(){
+        if($scope.replay == true){
+            $scope.replayone();};
+            $scope.repeat = !$scope.repeat;
+    };
+
     $scope.$watch('isPlaying',function(){
         if($scope.replay == true){
             num = angularPlayer.getCurrentTrack();
             console.log(num);
-            $timeout(function(){
-                angularPlayer.resetProgress();
-            });
+            if(num != renum){
+                $timeout(function(){
+                    angularPlayer.playTrack(renum);
+                    });
+                }
             };
         });
 });
@@ -111,7 +147,7 @@ angular.module('angularSoundManager', [])
             repeat = false,
             autoPlay = true,
             isPlaying = false,
-            volume = 34,
+            volume = 100,
             trackProgress = 0,
             playlist = [];
 
