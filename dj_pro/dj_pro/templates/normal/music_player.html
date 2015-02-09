@@ -45,10 +45,10 @@
             <span ng-show="!isPlaying">Player status: Paused</span>
             <br />
             <div class="col-md-2"></div>
-            <span ng-click="prev_track()" class="handpointer glyphicon glyphicon-step-backward"></span>
+            <span prev-track class="handpointer glyphicon glyphicon-step-backward"></span>
             <span play-music class="handpointer glyphicon glyphicon-play" ng-show="!isPlaying"></span>
             <span pause-music class="handpointer glyphicon glyphicon-pause" ng-show="isPlaying"></span>
-            <span ng-click="next_track()" class="handpointer glyphicon glyphicon-step-forward"></span>
+            <span next-track class="handpointer glyphicon glyphicon-step-forward"></span>
             <span ng-click="replayone()" class="handpointer glyphicon glyphicon-arrow-right" ng-show="!replay"></span>
             <span ng-click="replayone()" class="handpointer glyphicon glyphicon-repeat" ng-show="replay"></span>
             <span ng-click="repeat_toggle()" class="handpointer glyphicon glyphicon-circle-arrow-right" ng-show="!repeat"></span>

@@ -29,6 +29,7 @@ app.controller('Sound2_Ctrl',
     $scope.$watch('music_owner',function() {
         $scope.replay = false;
         musiclist = [];
+
         for (i in allmusic){                             //choose the musiclist via owner;
             if (allmusic[i].owner == $scope.music_owner){
                 musiclist.push(allmusic[i]);
@@ -37,17 +38,17 @@ app.controller('Sound2_Ctrl',
 
         for (i in musiclist){                                       // fix user musiclist id;
             musiclist[i].id=i;                                     
-            console.log(musiclist[i]);
+            // console.log(musiclist[i]);
         };
 
         $scope.songs = musiclist;
         $scope.list_num = parseInt(musiclist[musiclist.length-1].id)+1;
         $scope.person_num = parseInt(musiclist.length);
-        console.log($scope.list_num,$scope.person_num);
+        // console.log($scope.list_num,$scope.person_num);
         
         $timeout(function(){
             angularPlayer.clearPlaylist(function (data) {
-                console.log('cleared, ok now add to playlist');
+                // console.log('cleared, ok now add to playlist');
                 //add songs to playlist
                 for (var i = 0; i < $scope.songs.length; i++) {
                     angularPlayer.addTrack($scope.songs[i]);
@@ -55,9 +56,13 @@ app.controller('Sound2_Ctrl',
     
                 //play first song
                 angularPlayer.play();
+
+                if(changeInput.value != undefined){      // keep the volume when change the user 
+                    changeInput.onchange();
+                    // console.log(changeInput.value);
+                    };
                 });
             });
-
 
         });
     });
@@ -65,64 +70,45 @@ app.controller('Sound2_Ctrl',
     $scope.isCollapsed = true;
 
     var changeInput = document.querySelector('.js-check-change');
-    var changeint = new Powerange(changeInput, { start: 100, decimal: false, min: 0, max: 100, vertical: false });
+    var changeint = new Powerange(
+            changeInput, { 
+                        start: 100, 
+                        decimal: false, 
+                        min: 0, 
+                        max: 100, 
+                        vertical: false 
+                        });
+
     changeInput.onchange = function() {
         angularPlayer.adjustVolume(changeInput.value);
         document.getElementById('js-display-change').innerHTML = changeInput.value;
     };
     
-    console.log(angularPlayer.getCurrentTrack());
-    console.log(angularPlayer.currentTrackData());
-    
     $scope.replayone = function(){
         if($scope.repeat == true){
             $scope.repeat = false;
         };
-        $scope.getid = angularPlayer.getCurrentTrack();
         $scope.replay = !$scope.replay;
-        console.log('replay');
-        renum = angularPlayer.getCurrentTrack();
     };
     
-    $scope.next_track = function(){
-        if($scope.replay == true){
-            $scope.replayone();};
-            $timeout(function(){
-                angularPlayer.nextTrack();
-                if($scope.replay == true){
-                    $scope.replayone();
-                };
-            });
-    };
-
-    $scope.prev_track = function(){
-        if($scope.replay == true){
-            $scope.replayone();};
-            $timeout(function(){
-                angularPlayer.prevTrack();
-                if($scope.replay == true){
-                    $scope.replayone();
-                };
-            });
-    };
 
     $scope.repeat_toggle = function(){
         if($scope.replay == true){
-            $scope.replayone();};
-            $scope.repeat = !$scope.repeat;
+            $scope.replay = false;
+        };
+        $scope.repeat = !$scope.repeat;
     };
 
-    $scope.$watch('isPlaying',function(){
-        if($scope.replay == true){
-            num = angularPlayer.getCurrentTrack();
-            console.log(num);
-            if(num != renum){
-                $timeout(function(){
-                    angularPlayer.playTrack(renum);
-                    });
-                }
-            };
-        });
+    $scope.$on('track:progress', function(event, data) {
+        getid = angularPlayer.getCurrentTrack();
+        if (parseInt(data) === 100&& $scope.replay == true) {
+            $timeout(function(){
+                angularPlayer.playTrack(getid);      
+                // console.log('replayone here')
+            });
+        //track finished playing, do here what ever you want to do
+        };
+    });
 });
 
 
@@ -230,10 +216,10 @@ angular.module('angularSoundManager', [])
                     }
                 });
                 soundManager.onready(function () {
-                    console.log('song manager ready!');
+                    // console.log('song manager ready!');
                     // Ready to use; soundManager.createSound() etc. can now be called.
                     var isSupported = soundManager.ok();
-                    console.log('is supported: ' + isSupported);
+                    // console.log('is supported: ' + isSupported);
 
                     $rootScope.$broadcast('angularPlayer:ready', true);
                 });
@@ -296,14 +282,14 @@ angular.module('angularSoundManager', [])
             addTrack: function (track) {
                 //check if url is playable
                 if (soundManager.canPlayURL(track.url) !== true) {
-                    console.log('invalid song url');
+                    // console.log('invalid song url');
                     return null;
                 }
 
                 //check if song already does not exists then add to playlist
                 var inArrayKey = this.isInArray(this.getPlaylist(), track.id);
                 if (inArrayKey === false) {
-                    console.log('song does not exists in playlist');
+                    // console.log('song does not exists in playlist');
 
                     //add to sound manager
                     soundManager.createSound({
@@ -354,7 +340,7 @@ angular.module('angularSoundManager', [])
                 //check if no track loaded, else play loaded track
                 if (this.getCurrentTrack() === null) {
                     if (soundManager.soundIDs.length === 0) {
-                        console.log('playlist is empty!');
+                        // console.log('playlist is empty!');
                         return;
                     }
 
@@ -416,7 +402,7 @@ angular.module('angularSoundManager', [])
                 if (typeof prevTrack !== 'undefined') {
                     this.playTrack(prevTrack);
                 } else {
-                    console.log('no prev track found!');
+                    // console.log('no prev track found!');
                 }
             },
             mute: function () {
@@ -455,7 +441,7 @@ angular.module('angularSoundManager', [])
                     $rootScope.$broadcast('music:volume', volume);
             },
             clearPlaylist: function (callback) {
-                console.log('clear playlist');
+                // console.log('clear playlist');
                 this.resetProgress();
 
                 //unload and destroy soundmanager sounds
@@ -472,7 +458,7 @@ angular.module('angularSoundManager', [])
                     },
                     callback: function () {
                         //callback custom code
-                        console.log('All done!');
+                        // console.log('All done!');
                         //clear playlist
                         playlist = [];
                         $rootScope.$broadcast('player:playlist', playlist);
@@ -502,7 +488,7 @@ angular.module('angularSoundManager', [])
                         scope.progress = data;
                     });
                 });
-
+                
                 scope.$on('track:id', function (event, data) {
                     scope.$apply(function () {
                         scope.currentPlaying = angularPlayer.currentTrackData();
@@ -533,7 +519,7 @@ angular.module('angularSoundManager', [])
                 scope.$on('player:playlist', function (event, data) {
                     scope.$apply(function () {
                         scope.playlist = data;
-                        console.log(data);
+                        // console.log(data);
                     });
                 });
             }
@@ -556,7 +542,7 @@ angular.module('angularSoundManager', [])
                 };
 
                 element.bind('click', function () {
-                    console.log('adding song to playlist');
+                    // console.log('adding song to playlist');
                     addToPlaylist();
                 });
             }
@@ -595,7 +581,7 @@ angular.module('angularSoundManager', [])
 
                 element.bind('click', function (event) {
                     if (angularPlayer.getCurrentTrack() === null) {
-                        console.log('no track loaded');
+                        // console.log('no track loaded');
                         return;
                     }
 
@@ -724,7 +710,7 @@ angular.module('angularSoundManager', [])
                     angularPlayer.setCurrentTrack(null);
                     
                     angularPlayer.clearPlaylist(function (data) {
-                    	console.log('all clear!');    
+                    	// console.log('all clear!');    
                     });
                 });
 

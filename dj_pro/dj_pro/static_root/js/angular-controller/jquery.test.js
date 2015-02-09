@@ -1,90 +1,142 @@
 app.controller('jquery_test_ctrl', function($scope,$timeout) {
-    console.log('work');
-        $("#test").click(function(){
-            $(this).hide();
-            console.log(this);
-            $("p").addClass('btn btn-success alter');
-            $("p").removeClass('btn-success');
-            console.log($("p").text());
-            console.log($("p").text('jquery'));
-   //         console.log($("p").html());
-    });
-        $("#toggle").click(function(){
-            $("#test").toggle();
-        });
-        
-    var foo = function( value ) {
-        console.log( "foo: " + value );
+
+    var ctx = $("#myChart").get(0).getContext("2d");
+    //This will get the first returned node in the jQuery collection.
+    var data = {
+    labels : ["January","February","March","April","May","June","July"],
+    datasets : [
+        {
+            fillColor : "rgba(220,220,220,0.5)",
+            strokeColor : "rgba(220,220,220,1)",
+            pointColor : "rgba(220,220,220,1)",
+            pointStrokeColor : "#fff",
+            data : [65,59,90,81,56,55,40]
+        },
+        {
+            fillColor : "rgba(151,187,205,0.5)",
+            strokeColor : "rgba(151,187,205,1)",
+            pointColor : "rgba(151,187,205,1)",
+            pointStrokeColor : "#fff",
+            data : [28,48,40,19,96,27,100]
+        }
+        ]
     };
- 
-// another function to also be added to the list
-    var bar = function( value ){
-        console.log( "bar: " + value );
+
+    options =  {
+        scaleFontColor: "#f00",
+        datasetStrokeWidth: 5
     };
- 
-    var callbacks = $.Callbacks();
- 
-// add the function "foo" to the list
-    callbacks.add( foo );
+
+    var myNewChart = new Chart(ctx).Line(data,options);
+
+    var bar = $("#ChartBar").get(0).getContext("2d");
+    var bardata = {
+    labels : ["January","February","March","April","May","June","July"],
+    datasets : [
+        {
+            fillColor : "rgba(220,220,220,0.5)",
+            strokeColor : "rgba(220,220,220,1)",
+            data : [65,59,90,81,56,55,40]
+        },
+        {
+            fillColor : "rgba(151,187,205,0.5)",
+            strokeColor : "rgba(151,187,205,1)",
+            data : [28,48,40,19,96,27,100]
+        }
+        ]
+    };
+    mybar = new Chart(bar).Bar(bardata,options);
     
-    console.log( "1.comfirm been callbacked:" + callbacks.fired() );   //false
-// fire the items on the list
-    callbacks.fire( "hello" );
-// outputs: "foo: hello"
-    console.log( "2.comfirm been callbacked:" + callbacks.fired() );  //true
-    console.log(callbacks.has( foo ));
+    var radardata = {
+    labels : ["Eating","Drinking","Sleeping","Designing","Coding","Partying","Running"],
+    datasets : [
+        {
+            fillColor : "rgba(220,220,220,0.5)",
+            strokeColor : "rgba(220,220,220,1)",
+            pointColor : "rgba(220,220,220,1)",
+            pointStrokeColor : "#fff",
+            data : [65,59,90,81,56,55,40]
+        },
+        {
+            fillColor : "rgba(151,187,205,0.5)",
+            strokeColor : "rgba(151,187,205,1)",
+            pointColor : "rgba(151,187,205,1)",
+            pointStrokeColor : "#fff",
+            data : [28,48,40,19,96,27,100]
+        }
+    ]
+};
+    var radar = $("#RadarBar").get(0).getContext("2d");
+    new Chart(radar).Radar(radardata,options);
 
-    callbacks.remove( foo );
- 
-// add the function "bar" to the list
-    callbacks.add( bar );
- 
-// fire the items on the list again
-    callbacks.fire( "world" );
+    var polardata = [
+    {
+        value : 30,
+        color: "#D97041"
+    },
+    {
+        value : 90,
+        color: "#C7604C"
+    },
+    {
+        value : 24,
+        color: "#21323D"
+    },
+    {
+        value : 58,
+        color: "#9D9B7F"
+    },
+    {
+        value : 82,
+        color: "#7D4F6D"
+    },
+    {
+        value : 8,
+        color: "#584A5E"
+    }
+    ];
+    var polar = $("#Polar").get(0).getContext("2d");
+    polarchart = new Chart(polar).PolarArea(polardata,options);
     
-    callbacks.add( foo );
+    var piedata = [
+    {
+        value: 30,
+        color:"#F38630"
+    },
+    {
+        value : 50,
+        color : "#E0E4CC"
+    },
+    {
+        value : 100,
+        color : "#69D2E7"
+    }           
+    ];
+    var pie = $("#Pie").get(0).getContext("2d");
+    piechart = new Chart(pie).PolarArea(piedata,options);
+    var doughnutdata = [
+    {
+        value: 30,
+        color:"#F7464A"
+    },
+    {
+        value : 50,
+        color : "#E2EAE9"
+    },
+    {
+        value : 100,
+        color : "#D4CCC5"
+    },
+    {
+        value : 40,
+        color : "#949FB1"
+    },
+    {
+        value : 120,
+        color : "#4D5360"
+    }
 
-    callbacks.empty();
-
-    console.log(callbacks.has( foo ) + callbacks.has( bar ));
-
-    $( "div.test" ).click(function() {
-        console.log('here');
-        $("p",this).hide();
-    });
-    /* put it in to the head run it first
-    $.holdReady(true);
-    
-    $.getScript("../angular-controller/checkuser_cookie.js", function() {
-    
-    $.holdReady(false);
-    */
-    //do it like python dict
-    var foo = {foo: "bar", hello: "world"};
- 
-    // Pass it to the jQuery function
-    var $foo = $( foo );
- 
-    // test accessing property values
-    var test1 = $foo.prop( "foo" ); // bar
-    console.log(test1);
- 
-    // test setting property values
-    $foo.prop( "foo", "foobar" );
-    var test2 = $foo.prop( "foo" ); // foobar
-    console.log(test2);
-    console.log($foo);
- 
-    // test using .data() as summarized above
-    $foo.data( "keyName", "someValue");
-    console.log( $foo ); // will now contain a jQuery{randomNumber} property
- 
-    // test binding an event name and triggering
-    $foo.bind( "eventName", function () {
-        console.log("eventName was called");
-    });
- 
-    $foo.trigger( "eventName" ); // logs "eventName was called"
-
-    $( "div#sed > p").css("border", "1px solid gray");
+    ];
+    var dough = $("#Dough").get(0).getContext("2d");
+    doughchart = new Chart(dough).Doughnut(doughnutdata,options);
 });

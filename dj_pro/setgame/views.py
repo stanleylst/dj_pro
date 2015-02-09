@@ -8,30 +8,51 @@ from rest_framework.parsers import MultiPartParser, FormParser,FileUploadParser
 from .models import *
 from .serializers import *
 from django.contrib.auth import authenticate
+
+# for raw sql
+from django.db import connections
 # Create your views here.
 import os,ast,base64
 
 # My scripts
 import sys
+import json
 sys.path.insert(0, 'dj_pro/scripts')
 from lyingdragon_script import *
 from pythonssh import *
+
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)
 
+    def dictfetchall(self, cursor):
+        "Returns all rows from a cursor as a dict"
+        desc = cursor.description
+        return [
+            dict(zip([col[0] for col in desc], row))
+            for row in cursor.fetchall()
+        ]
+
     def list(self,request,*args,**kwargs):
+        with connections['test'].cursor() as C:
+            C.execute("SELECT * FROM testtbl");
+            result1 = self.dictfetchall(C)
+        print result1
         try:
             user = request.COOKIES['loginname']
+            testrawsql = "select * from auth_user where username='%s'" %user
             print user
-            username = request.user.username
-            print username
-            userna = request.session['loginname']
-            print userna
+            mydata = User.objects.raw(testrawsql)
+            for i in mydata:
+                print 'here' + i.username + i.password
+            testdata = self.serializer_class(mydata, many=True)
+            print testdata.data[0]['id'],testdata.data[0]['musics'][0]['music_file']
         except:
-            print 'no user cookie'
+            pass
+        username = request.user.username
+        print username
         response = super(UserList,self).list(request,*args,**kwargs)
         if request.accepted_renderer.format == 'html':
             return Response({'data': response.data}, template_name='form_user_login.html')

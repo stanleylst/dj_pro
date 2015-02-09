@@ -42,6 +42,14 @@ DATABASES = {
         'PASSWORD': '', # Not used with sqlite3.
         'HOST': 'db', # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432', # Set to empty string for default. Not used with sqlite3.
+    },
+    'test': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'test',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
