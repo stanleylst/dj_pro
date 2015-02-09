@@ -101,7 +101,7 @@ app.controller('Sound2_Ctrl',
 
     $scope.$on('track:progress', function(event, data) {
         getid = angularPlayer.getCurrentTrack();
-        if (parseInt(data) === 100&& $scope.replay == true) {
+        if (parseInt(data) === 100 && $scope.replay == true) {
             $timeout(function(){
                 angularPlayer.playTrack(getid);      
                 // console.log('replayone here')

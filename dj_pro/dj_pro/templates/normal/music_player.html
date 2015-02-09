@@ -59,10 +59,16 @@
     <div class="col-md-12 column">
         <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">music list - ((person_num))</button>
         <div collapse="isCollapsed">
-            <div class="col-md-5 column">
-                <div class="col-md-12 column" ng-repeat="song in songs">
-                    <img ng-src="((song.img))" class="img-thumbnail" width="70" height="70">
-                    <button play-from-playlist="song" class="btn btn btn-info"><span class="glyphicon glyphicon-headphones"> ((song.title))</span></button>
+            <div class="col-md-12 column">
+                <div class="col-md-12 column" ng-repeat="song in playlist">
+                    <div class="col-md-12 column">
+                        <img play-from-playlist="song"  ng-src="((song.img))" class="img-thumbnail handpointer" width="70" height="70">
+                        <span ng-if="currentPlaying.id == song.id" class="glyphicon glyphicon-hand-left"></span>
+                        <span remove-from-playlist="song" data-index="(($index))" class="btn btn btn-warning glyphicon glyphicon-remove"> </span>
+                    </div>
+                    <div class="col-md-12 column">
+                        <button play-from-playlist="song" class="btn btn btn-info"><span class="glyphicon glyphicon-headphones"> ((song.title))</span></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,7 +79,7 @@
         <div class="col-md-9 column">
         <accordion>
         <accordion-group is-open="status.open">
-        <accordion-heading>Add a song <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></accordion-heading>
+        <accordion-heading >Add a song <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></accordion-heading>
             <div class="col-md-12 column addsongbg" ng-controller="music_ctrl" >
                         <label>choose a music</label>
                         <input type="file" file-model="music_file"/>

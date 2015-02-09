@@ -38,11 +38,11 @@ app.controller('music_ctrl', ['$scope', 'ipCookie','fileUpload', 'User',function
     userid = '';
      User.query(function(users){
         usercookie = ipCookie('loginname');
-        console.log(users);
+        // console.log(users);
          for( i in users){
             if( users[i].username == usercookie){
             userid = users[i].id;
-            console.log(userid);
+            // console.log(userid);
          };
      };
     });
@@ -55,7 +55,7 @@ app.controller('music_ctrl', ['$scope', 'ipCookie','fileUpload', 'User',function
                           'music_img':$scope.music_img,
                            'username':userid};
         
-        console.log(up_combine);
+        // console.log(up_combine);
         var uploadUrl = "/setgame/musics";
         fileUpload.uploadFileToUrl(up_combine, uploadUrl);
     };
