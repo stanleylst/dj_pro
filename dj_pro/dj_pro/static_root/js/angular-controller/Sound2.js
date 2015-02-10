@@ -87,6 +87,7 @@ app.controller('Sound2_Ctrl',
     $scope.replayone = function(){
         if($scope.repeat == true){
             $scope.repeat = false;
+            angularPlayer.repeatToggle();
         };
         $scope.replay = !$scope.replay;
     };
@@ -97,18 +98,23 @@ app.controller('Sound2_Ctrl',
             $scope.replay = false;
         };
         $scope.repeat = !$scope.repeat;
+        angularPlayer.repeatToggle();
     };
 
     $scope.$on('track:progress', function(event, data) {
-        getid = angularPlayer.getCurrentTrack();
         if (parseInt(data) === 100 && $scope.replay == true) {
+            getid = angularPlayer.getCurrentTrack();
             $timeout(function(){
                 angularPlayer.playTrack(getid);      
                 // console.log('replayone here')
             });
-        //track finished playing, do here what ever you want to do
         };
     });
+
+    $scope.$on('load:progress', function(event, data) {
+            $scope.load = data
+    });
+
 });
 
 
@@ -179,7 +185,8 @@ angular.module('angularSoundManager', [])
                         usePolicyFile: false, // enable crossdomain.xml request for remote domains (for ID3/waveform access)
                         volume: volume, // self-explanatory. 0-100, the latter being the max.
                         whileloading: function () {
-                            //soundManager._writeDebug('sound '+this.id+' loading, '+this.bytesLoaded+' of '+this.bytesTotal);
+                            soundManager._writeDebug('sound '+this.id+' loading, '+this.bytesLoaded+' of '+this.bytesTotal);
+                            $rootScope.$broadcast('load:progress', Math.round(this.bytesLoaded*100) );
                         },
                         whileplaying: function () {
                             //soundManager._writeDebug('sound '+this.id+' playing, '+this.position+' of '+this.duration);
@@ -520,6 +527,12 @@ angular.module('angularSoundManager', [])
                     scope.$apply(function () {
                         scope.playlist = data;
                         // console.log(data);
+                    });
+                });
+
+                scope.$on('load:progress', function (event, data) {
+                    scope.$apply(function () {
+                        scope.load = data;
                     });
                 });
             }

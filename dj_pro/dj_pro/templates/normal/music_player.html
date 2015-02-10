@@ -26,6 +26,9 @@
                     <div  class="slider-bar progress-bar" role="progressbar" style="height:18px;width:((progress))%;">
                         <span>((progress|number:0))% </span>
                     </div>
+                    <div  class="slider-bar progress-bar progress-bar-info" role="progressbar" style="height:18px;width:((load-progress))%;">
+                        <span>((load|number:0))% </span>
+                    </div>
                 </div>
                 <div class="example" class="col-md-1 column">
                     <input type="text" class="js-check-change" />
@@ -64,7 +67,7 @@
                     <div class="col-md-12 column">
                         <img play-from-playlist="song"  ng-src="((song.img))" class="img-thumbnail handpointer" width="70" height="70">
                         <span ng-if="currentPlaying.id == song.id" class="glyphicon glyphicon-hand-left"></span>
-                        <span remove-from-playlist="song" data-index="(($index))" class="btn btn btn-warning glyphicon glyphicon-remove"> </span>
+                        <span remove-from-playlist="song" data-index="(($index))" class="pull-right btn btn btn-warning glyphicon glyphicon-remove"> </span>
                     </div>
                     <div class="col-md-12 column">
                         <button play-from-playlist="song" class="btn btn btn-info"><span class="glyphicon glyphicon-headphones"> ((song.title))</span></button>
